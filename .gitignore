@@ -1,0 +1,11 @@
+#Build files
+x64
+
+#Solution file
+source.sln
+
+# VS service files
+.vs
+source.vcxproj
+source.vcxproj.filters
+source.vcxproj.user
