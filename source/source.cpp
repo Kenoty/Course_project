@@ -1,18 +1,5 @@
 ﻿#include <iostream>
-
-class product
-{
-    char* name;
-    float price;
-public:
-    void read() const;
-    void read_only_names(int) const;
-    char* set_name();
-    char* reset_name();
-    float set_price();
-    product* renew(product*, int&);
-    product* remove(product*, int&, int);
-};
+#include "product.cpp"
 
 void product::read() const
 {
@@ -82,12 +69,12 @@ float product::set_price()
 product* renew(product* courses, int& amount)
 {
     product* temp;
-    temp = new product[amount + 1];
+    temp = new product[amount];
     for (int i = 0; i < amount; i++)
         temp[i] = courses[i];
     delete[] courses;
     courses = new product[++amount];
-    for (int i = 0; i < amount; i++)
+    for (int i = 0; i < amount - 1; i++)
         courses[i] = temp[i];
     delete[] temp;
     return courses;
