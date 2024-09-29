@@ -1,21 +1,15 @@
+#include <string>
+using namespace std;
+
 class product
 {
-    char* name;
+    string name;
     float price;
 public:
-   /* product()
-    {
-        name = new char[1];
-        price = 0;
-    };*/
-   /* ~product()
-    {
-        delete[] name;
-    }*/
     void read() const;
     void read_only_names(int) const;
-    char* set_name();
-    char* reset_name();
+    void set_name();
+    void reset_name();
     float set_price();
     product* renew(product*, int&);
     product* remove(product*, int&, int);
