@@ -12,51 +12,21 @@ void product::read_only_names(int i) const
     std::cout << i << ". " << name << '\n';
 }
 
-char* product::set_name()
+void product::set_name()
 {
     int i = 1;
     rewind(stdin);
     std::cout << "Enter product name: ";
-    name = new char[1];
-    char* temp;
-    while ((name[i - 1] = getchar()) != '\n')
-    {
-        temp = new char[i];
-        for (int k = 0; k < i; k++)
-            temp[k] = name[k];
-        delete[] name;
-        i++;
-        name = new char[i];
-        for (int k = 0; k < i - 1; k++)
-            name[k] = temp[k];
-        delete[] temp;
-    }
-    name[i - 1] = '\0';
-    return name;
+    getline(cin, name);
 }
 
-char* product::reset_name()
+void product::reset_name()
 {
     int i = 1;
     rewind(stdin);
-    delete[] name;
+    name.clear();
     std::cout << "Enter product name: ";
-    name = new char[1];
-    char* temp;
-    while ((name[i - 1] = getchar()) != '\n')
-    {
-        temp = new char[i];
-        for (int k = 0; k < i; k++)
-            temp[k] = name[k];
-        delete[] name;
-        i++;
-        name = new char[i];
-        for (int k = 0; k < i - 1; k++)
-            name[k] = temp[k];
-        delete[] temp;
-    }
-    name[i - 1] = '\0';
-    return name;
+    getline(cin, name);
 }
 
 float product::set_price()
@@ -189,5 +159,5 @@ int main()
             break;
         }
     }
-    delete[] courses;
+ /*   delete[] courses;*/
 }
