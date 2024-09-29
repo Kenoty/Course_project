@@ -159,5 +159,5 @@ int main()
             break;
         }
     }
- /*   delete[] courses;*/
+    delete[] courses;
 }
