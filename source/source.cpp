@@ -1,5 +1,5 @@
 ﻿#include <iostream>
-#include "product.cpp"
+#include "product.h"
 
 void product::read() const
 {
@@ -34,7 +34,7 @@ float product::set_price()
     return price;
 }
 
-product* renew(product* courses, int& amount)
+void product::renew(product* courses, int& amount)
 {
     product* temp;
     temp = new product[amount];
@@ -45,10 +45,9 @@ product* renew(product* courses, int& amount)
     for (int i = 0; i < amount - 1; i++)
         courses[i] = temp[i];
     delete[] temp;
-    return courses;
 }
 
-product* remove(product* courses, int& amount, int order)
+void product::remove_course(product* courses, int& amount, int order)
 {
     int k = 0;
     product* temp;
@@ -63,7 +62,6 @@ product* remove(product* courses, int& amount, int order)
     for (int i = 0; i < amount; i++)
         courses[i] = temp[i];
     delete[] temp;
-    return courses;
 }
 
 void routine()
@@ -105,7 +103,7 @@ int main()
             }
             else
             {
-                courses = renew(courses, amount);
+                courses->renew(courses, amount);
                 courses[amount - 1].set_name();
                 courses[amount - 1].set_price();
 
@@ -149,7 +147,7 @@ int main()
                     courses[i].read_only_names(i + 1);
                 std::cin >> order;
                 order--;
-                courses = remove(courses, amount, order);
+                courses->remove_course(courses, amount, order);
             }
             else
                 std::cout << "Courses are already do not exist\n";
@@ -162,5 +160,9 @@ int main()
             break;
         }
     }
-    delete[] courses;
+    if (amount != 0)
+    {
+        delete[] courses;
+    }
+    return 0;
 }
