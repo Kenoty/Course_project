@@ -14,7 +14,6 @@ void product::read_only_names(int i) const
 
 void product::set_name()
 {
-    int i = 1;
     rewind(stdin);
     std::cout << "Enter product name: ";
     getline(cin, name);
@@ -22,7 +21,6 @@ void product::set_name()
 
 void product::reset_name()
 {
-    int i = 1;
     rewind(stdin);
     name.clear();
     std::cout << "Enter product name: ";
@@ -144,12 +142,17 @@ int main()
             action = 0;
             break;
         case 4:
-            std::cout << "\vWhat product you want to delete:\n";
-            for (int i = 0; i < amount; i++)
-                courses[i].read_only_names(i + 1);
-            std::cin >> order;
-            order--;
-            courses = remove(courses, amount, order);
+            if (amount != 0)
+            {
+                std::cout << "\vWhat product you want to delete:\n";
+                for (int i = 0; i < amount; i++)
+                    courses[i].read_only_names(i + 1);
+                std::cin >> order;
+                order--;
+                courses = remove(courses, amount, order);
+            }
+            else
+                std::cout << "Courses are already do not exist\n";
             routine();
             action = 0;
             break;
