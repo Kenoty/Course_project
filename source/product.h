@@ -11,6 +11,6 @@ public:
     void set_name();
     void reset_name();
     float set_price();
-    product* renew(product*, int&);
-    product* remove(product*, int&, int);
+    void renew(product*, int&);
+    void remove_course(product* courses, int& amount, int order);
 };
