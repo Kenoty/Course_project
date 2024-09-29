@@ -164,5 +164,4 @@ int main()
     {
         delete[] courses;
     }
-    return 0;
 }
