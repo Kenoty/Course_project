@@ -3,7 +3,7 @@
 
 void product::read() const
 {
-    std::cout << "Name: " << name << "\nPrice: " << price << '\n';
+    std::cout << "Name: " << name << "\nPrice: " << price << "\nRating: " << rating << '\n';
 }
 
 void product::read_only_names(int i) const
@@ -32,6 +32,15 @@ float product::set_price()
     std::cout << "Enter product price: ";
     std::cin >> price;
     return price;
+}
+
+void product::rate_the_course()
+{
+    int temp;
+    std::cout << "Rate this course from 1 to 5: ";
+    std::cin >> temp;
+    rating = (rating * number_of_votes + temp) / (number_of_votes + 1);
+    number_of_votes++;
 }
 
 void product::renew(product* courses, int& amount)
@@ -80,7 +89,7 @@ int main()
     product* courses;
     courses = new product[1];
 
-    while (action != 5)
+    while (action != 6)
     {
         switch (action)
         {
@@ -89,9 +98,10 @@ int main()
             std::cout << "Select the action you want to do and print the number\n";
             std::cout << "1. Create the product\n";
             std::cout << "2. Output information about the product\n";
-            std::cout << "3. Update information about the product\n";
-            std::cout << "4. Delete the product\n";
-            std::cout << "5. Exit the program\n";
+            std::cout << "3. Rate the product\n";
+            std::cout << "4. Update information about the product\n";
+            std::cout << "5. Delete the product\n";
+            std::cout << "6. Exit the program\n";
             std::cin >> action;
             break;
         case 1:
@@ -121,6 +131,16 @@ int main()
             action = 0;
             break;
         case 3:
+            std::cout << "\vWhat product you want to rate:\n";
+            for (int i = 0; i < amount; i++)
+                courses[i].read_only_names(i + 1);
+            std::cin >> order;
+            order--;
+            courses[order].rate_the_course();
+            routine();
+            action = 0;
+            break;
+        case 4:
             std::cout << "\vWhat product you want to update:\n";
             for (int i = 0; i < amount; i++)
                 courses[i].read_only_names(i + 1);
@@ -139,7 +159,7 @@ int main()
             routine();
             action = 0;
             break;
-        case 4:
+        case 5:
             if (amount != 0)
             {
                 std::cout << "\vWhat product you want to delete:\n";
