@@ -16,7 +16,7 @@ void product::set_name()
 {
     rewind(stdin);
     std::cout << "Enter product name: ";
-    getline(cin, name);
+    std::getline(std::cin, name);
 }
 
 void product::rate_the_course()
@@ -33,7 +33,7 @@ void product::reset_name()
     rewind(stdin);
     name.clear();
     std::cout << "Enter product name: ";
-    getline(cin, name);
+    std::getline(std::cin, name);
 }
 
 float product::set_price()
