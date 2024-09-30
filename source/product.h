@@ -1,9 +1,9 @@
+#include <iostream>
 #include <string>
-using namespace std;
 
 class product
 {
-    string name;
+    std::string name;
     float price;
     float rating = 0;
     int number_of_votes = 0;
