@@ -43,7 +43,7 @@ void product::rate_the_course()
     number_of_votes++;
 }
 
-void product::decrease(product* courses, int& amount)
+void product::increase(product* courses, int& amount)
 {
     product* temp;
     temp = new product[amount];
@@ -113,7 +113,7 @@ int main()
             }
             else
             {
-                courses->decrease(courses, amount);
+                courses->increase(courses, amount);
                 courses[amount - 1].set_name();
                 courses[amount - 1].set_price();
 
@@ -122,7 +122,7 @@ int main()
             action = 0;
             break;
         case 2:
-            for (int i = 0; i < amount; i++)
+             for (int i = 0; i < amount; i++)
             {
                 std::cout << "Product number " << i + 1 << '\n';
                 courses[i].read();
