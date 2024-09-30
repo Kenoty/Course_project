@@ -14,6 +14,6 @@ public:
     void reset_name();
     float set_price();
     void rate_the_course();
-    void increase(product*, int&);
+    void increase(product* courses, int& amount);
     void remove_course(product* courses, int& amount, int order);
 };
