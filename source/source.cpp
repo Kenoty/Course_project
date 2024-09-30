@@ -67,7 +67,10 @@ void product::remove_course(product* courses, int& amount, int order)
             temp[k++] = courses[i];
     }
     delete[] courses;
-    courses = new product[amount];
+    if(amount != 0)
+        courses = new product[amount];
+    else
+        courses = new product[1];
     for (int i = 0; i < amount; i++)
         courses[i] = temp[i];
     delete[] temp;
