@@ -6,7 +6,7 @@ void product::read() const
     std::cout << "Name: " << name << "\nPrice: " << price << "\nRating: " << rating << '\n';
 }
 
-void product::read_only_names(int i) const
+void product::read_only_names(unsigned int i) const
 {
 
     std::cout << i << ". " << name << '\n';
@@ -43,7 +43,7 @@ float product::set_price()
     return price;
 }
 
-void product::increase(product* courses, int& amount)
+void product::increase(product* courses, unsigned int& amount)
 {
     product* temp;
     temp = new product[amount];
@@ -56,7 +56,7 @@ void product::increase(product* courses, int& amount)
     delete[] temp;
 }
 
-void product::remove_course(product* courses, int& amount, int order)
+void product::remove_course(product* courses, unsigned int& amount, int order)
 {
     --amount;
     if (amount != 0)

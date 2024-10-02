@@ -3,7 +3,7 @@
 int main()
 {
     int action = 0;
-    int amount = 0;
+    unsigned int amount = 0;
     product* courses;
     courses = new product[1];
 

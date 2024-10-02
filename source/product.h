@@ -9,11 +9,11 @@ class product
     int number_of_votes = 0;
 public:
     void read() const;
-    void read_only_names(int) const;
+    void read_only_names(unsigned int) const;
     void set_name();
     void reset_name();
     float set_price();
     void rate_the_course();
-    void increase(product* courses, int& amount);
-    void remove_course(product* courses, int& amount, int order);
+    void increase(product* courses, unsigned int& amount);
+    void remove_course(product* courses, unsigned int& amount, int order);
 };
