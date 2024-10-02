@@ -22,7 +22,7 @@ void product::set_name()
 void product::rate_the_course()
 {
     int temp;
-    std::cout << "Rate this course from 1 to 5: ";
+    std::cout << "Rate this course from 0 to 5: ";
     std::cin >> temp;
     rating = (rating * number_of_votes + temp) / (number_of_votes + 1);
     number_of_votes++;
@@ -43,7 +43,7 @@ float product::set_price()
     return price;
 }
 
-void product::increase(product* courses, unsigned int& amount)
+void product::add_product(product* courses, unsigned int& amount)
 {
     product* temp;
     temp = new product[amount];

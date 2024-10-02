@@ -17,7 +17,7 @@ void create_the_product(product* courses,unsigned int& amount)
     }
     else
     {
-        courses->increase(courses, amount);
+        courses->add_product(courses, amount);
         courses[amount - 1].set_name();
         courses[amount - 1].set_price();
 
