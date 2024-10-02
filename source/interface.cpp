@@ -25,7 +25,7 @@ void create_the_product(product* courses,unsigned int& amount)
     routine();
 }
 
-void output_product_info(product* courses, unsigned int amount)
+void output_product_info(const product* courses, unsigned int amount)
 {
     for (unsigned int i = 0; i < amount; i++)
     {
