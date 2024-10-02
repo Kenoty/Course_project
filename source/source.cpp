@@ -48,6 +48,5 @@ int main()
             break;
         }
     }
-    if(amount != 0)
-        delete[] courses;
+    delete[] courses;
 }
