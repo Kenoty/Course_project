@@ -58,17 +58,22 @@ void product::increase(product* courses, int& amount)
 
 void product::remove_course(product* courses, int& amount, int order)
 {
-    int k = 0;
-    product* temp;
-    temp = new product[--amount];
-    for (int i = 0; i <= amount; i++)
+    --amount;
+    if (amount != 0)
     {
-        if (order != i)
-            temp[k++] = courses[i];
+        int k = 0;
+        product* temp;
+        temp = new product[amount];
+        for (int i = 0; i <= amount; i++)
+        {
+            if (order != i)
+                temp[k++] = courses[i];
+        }
+        delete[] courses;
+        courses = new product[amount];
+        for (int i = 0; i < amount; i++)
+            courses[i] = temp[i];
+        delete[] temp;
     }
-    delete[] courses;
-    courses = new product[amount];
-    for (int i = 0; i < amount; i++)
-        courses[i] = temp[i];
-    delete[] temp;
+    else delete[] courses;
 }
