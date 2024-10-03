@@ -13,8 +13,8 @@ void Product::read_only_names(unsigned int i) const
 
 void Product::set_name()
 {
-    rewind(stdin);
     std::cout << "Enter product name: ";
+    rewind(stdin);
     std::getline(std::cin, name);
 }
 
