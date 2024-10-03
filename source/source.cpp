@@ -4,8 +4,8 @@ int main()
 {
     int action = 0;
     unsigned int amount = 0;
-    product* courses;
-    courses = new product[1];
+    Product* courses;
+    courses = new Product[1];
 
     while (action != 6)
     {

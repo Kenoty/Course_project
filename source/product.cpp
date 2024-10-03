@@ -1,25 +1,24 @@
-#include <iostream>
 #include "product.h"
 
-void product::read() const
+void Product::read() const
 {
     std::cout << "Name: " << name << "\nPrice: " << price << "\nRating: " << rating << '\n';
 }
 
-void product::read_only_names(unsigned int i) const
+void Product::read_only_names(unsigned int i) const
 {
 
     std::cout << i << ". " << name << '\n';
 }
 
-void product::set_name()
+void Product::set_name()
 {
     rewind(stdin);
     std::cout << "Enter product name: ";
     std::getline(std::cin, name);
 }
 
-void product::rate_the_course()
+void Product::rate_the_course()
 {
     int temp;
     std::cout << "Rate this course from 0 to 5: ";
@@ -28,7 +27,7 @@ void product::rate_the_course()
     number_of_votes++;
 }
 
-void product::reset_name()
+void Product::reset_name()
 {
     rewind(stdin);
     name.clear();
@@ -36,41 +35,41 @@ void product::reset_name()
     std::getline(std::cin, name);
 }
 
-float product::set_price()
+float Product::set_price()
 {
     std::cout << "Enter product price: ";
     std::cin >> price;
     return price;
 }
 
-void product::add_product(product* courses, unsigned int& amount)
+void Product::add_product(Product* courses, unsigned int& amount)
 {
-    product* temp;
-    temp = new product[amount];
+    Product* temp;
+    temp = new Product[amount];
     for (int i = 0; i < amount; i++)
         temp[i] = courses[i];
     delete[] courses;
-    courses = new product[++amount];
+    courses = new Product[++amount];
     for (int i = 0; i < amount - 1; i++)
         courses[i] = temp[i];
     delete[] temp;
 }
 
-void product::remove_course(product* courses, unsigned int& amount, int order)
+void Product::remove_course(Product* courses, unsigned int& amount, int order)
 {
     --amount;
     if (amount != 0)
     {
         int k = 0;
-        product* temp;
-        temp = new product[amount];
+        Product* temp;
+        temp = new Product[amount];
         for (int i = 0; i <= amount; i++)
         {
             if (order != i)
                 temp[k++] = courses[i];
         }
         delete[] courses;
-        courses = new product[amount];
+        courses = new Product[amount];
         for (int i = 0; i < amount; i++)
             courses[i] = temp[i];
         delete[] temp;

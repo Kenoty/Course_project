@@ -7,7 +7,7 @@ void routine()
     getchar();
 }
 
-void create_the_product(product* courses,unsigned int& amount)
+void create_the_product(Product* courses,unsigned int& amount)
 {
     if (amount < 1)
     {
@@ -25,7 +25,7 @@ void create_the_product(product* courses,unsigned int& amount)
     routine();
 }
 
-void output_product_info(const product* courses, unsigned int amount)
+void output_product_info(const Product* courses, unsigned int amount)
 {
     for (unsigned int i = 0; i < amount; i++)
     {
@@ -35,7 +35,7 @@ void output_product_info(const product* courses, unsigned int amount)
     routine();
 }
 
-void rate_product(product* courses, unsigned int amount)
+void rate_product(Product* courses, unsigned int amount)
 {
     int order;
     std::cout << "\vWhat product you want to rate:\n";
@@ -47,7 +47,7 @@ void rate_product(product* courses, unsigned int amount)
     routine();
 }
 
-void update_info(product* courses, unsigned int amount)
+void update_info(Product* courses, unsigned int amount)
 {
     int order;
     int token;
@@ -69,7 +69,7 @@ void update_info(product* courses, unsigned int amount)
     routine();
 }
 
-void delete_product(product* courses, unsigned int& amount)
+void delete_product(Product* courses, unsigned int& amount)
 {
     int order;
     if (amount != 0)

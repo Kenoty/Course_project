@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-class product
+class Product
 {
     std::string name;
     float price;
@@ -14,6 +14,6 @@ public:
     void reset_name();
     float set_price();
     void rate_the_course();
-    void add_product(product* courses, unsigned int& amount);
-    void remove_course(product* courses, unsigned int& amount, int order);
+    void add_product(Product* courses, unsigned int& amount);
+    void remove_course(Product* courses, unsigned int& amount, int order);
 };
