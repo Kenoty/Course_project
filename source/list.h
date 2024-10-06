@@ -19,10 +19,10 @@ class List
 	};
 	Node<T> *head;
 public:
-	List()
+	List(int size = 0, Node<T>* head = nullptr)
 	{
-		size = 0;
-		head = nullptr;
+		this->size = size;
+		this->head = head;
 	}
 	~List()
 	{
