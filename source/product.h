@@ -8,12 +8,12 @@ class Product
     float rating;
     int number_of_votes;
 public:
-    Product()
+    Product(std::string name = " ", float price = 0, float rating = 0, int number_of_votes = 0)
     {
-        name = " ";
-        price = 0;
-        rating = 0;
-        number_of_votes = 0;
+        this->name = name;
+        this->price = price;
+        this->rating = rating;
+        this->number_of_votes = number_of_votes;
     }
     void read() const;
     void read_only_names(unsigned int) const;
