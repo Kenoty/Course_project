@@ -1,8 +1,9 @@
 #include "product.h"
+#include "list.h"
 
 void routine();
-void create_the_product(Product*, unsigned int&);
-void output_product_info(const Product*, unsigned int);
-void rate_product(Product*, unsigned int);
-void update_info(Product*, unsigned int);
-void delete_product(Product*, unsigned int&);
+void create_the_product(List<Product>&);
+void output_product_info(List<Product>);
+void rate_product(List<Product>&);
+void update_info(List<Product>&);
+void delete_product(List<Product>&);

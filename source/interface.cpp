@@ -7,27 +7,17 @@ void routine()
     getchar();
 }
 
-void create_the_product(Product* courses,unsigned int& amount)
+void create_the_product(List<Product>& courses)
 {
-    if (amount < 1)
-    {
-        courses[0].set_name();
-        courses[0].set_price();
-        amount++;
-    }
-    else
-    {
-        courses->add_product(courses, amount);
-        courses[amount - 1].set_name();
-        courses[amount - 1].set_price();
-
-    }
+    courses.push_back();
+    courses[courses.get_size() - 1].set_name();
+    courses[courses.get_size() - 1].set_price();
     routine();
 }
 
-void output_product_info(const Product* courses, unsigned int amount)
+void output_product_info(List<Product> courses)
 {
-    for (unsigned int i = 0; i < amount; i++)
+    for (int i = 0; i < courses.get_size(); i++)
     {
         std::cout << "Product number " << i + 1 << '\n';
         courses[i].read();
@@ -35,11 +25,11 @@ void output_product_info(const Product* courses, unsigned int amount)
     routine();
 }
 
-void rate_product(Product* courses, unsigned int amount)
+void rate_product(List<Product>& courses)
 {
     int order;
     std::cout << "\vWhat product you want to rate:\n";
-    for (unsigned int i = 0; i < amount; i++)
+    for (int i = 0; i < courses.get_size(); i++)
         courses[i].read_only_names(i + 1);
     std::cin >> order;
     order--;
@@ -47,12 +37,12 @@ void rate_product(Product* courses, unsigned int amount)
     routine();
 }
 
-void update_info(Product* courses, unsigned int amount)
+void update_info(List<Product>& courses)
 {
     int order;
     int token;
     std::cout << "\vWhat product you want to update:\n";
-    for (unsigned int i = 0; i < amount; i++)
+    for (int i = 0; i < courses.get_size(); i++)
         courses[i].read_only_names(i + 1);
     std::cin >> order;
     order--;
@@ -62,24 +52,24 @@ void update_info(Product* courses, unsigned int amount)
     std::cin >> token;
     if (token == 1)
     {
-        courses[order].reset_name();
+        courses[order].set_name();
     }
     else
         courses[order].set_price();
     routine();
 }
 
-void delete_product(Product* courses, unsigned int& amount)
+void delete_product(List<Product>& courses)
 {
     int order;
-    if (amount != 0)
+    if (courses.get_size() != 0)
     {
         std::cout << "\vWhat product you want to delete:\n";
-        for (unsigned int i = 0; i < amount; i++)
+        for (int i = 0; i < courses.get_size(); i++)
             courses[i].read_only_names(i + 1);
         std::cin >> order;
         order--;
-        courses->remove_course(courses, amount, order);
+        courses.remove_object(order);
     }
     else
         std::cout << "Courses are already do not exist\n";

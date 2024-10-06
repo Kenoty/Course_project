@@ -3,9 +3,7 @@
 int main()
 {
     int action = 0;
-    unsigned int amount = 0;
-    Product* courses;
-    courses = new Product[1];
+    List<Product> courses;
 
     while (action != 6)
     {
@@ -23,23 +21,23 @@ int main()
             std::cin >> action;
             break;
         case 1:
-            create_the_product(courses, amount);
+            create_the_product(courses);
             action = 0;
             break;
         case 2:
-            output_product_info(courses, amount);
+            output_product_info(courses);
             action = 0;
             break;
         case 3:
-            rate_product(courses, amount);
+            rate_product(courses);
             action = 0;
             break;
         case 4:
-            update_info(courses, amount);
+            update_info(courses);
             action = 0;
             break;
         case 5:
-            delete_product(courses, amount);
+            delete_product(courses);
             action = 0;
             break;
         default:
@@ -48,5 +46,4 @@ int main()
             break;
         }
     }
-    delete[] courses;
 }
