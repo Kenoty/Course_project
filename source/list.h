@@ -33,13 +33,13 @@ public:
 };
 
 template<typename T>
-int List<T>::get_size()
+inline int List<T>::get_size()
 {
 	return size;
 }
 
 template<typename T>
-void List<T>::push_back()
+inline void List<T>::push_back()
 {
 	if (head == nullptr)
 		head = new Node<T>;
@@ -55,7 +55,7 @@ void List<T>::push_back()
 }
 
 template<typename T>
-void List<T>::pop_front()
+inline void List<T>::pop_front()
 {
 	Node<T>* to_delete = this->head;
 	head = head->next;
@@ -64,7 +64,7 @@ void List<T>::pop_front()
 }
 
 template<typename T>
-void List<T>::remove_object(const int index)
+inline void List<T>::remove_object(const int index)
 {
 	if (index == 0)
 	{
@@ -94,7 +94,7 @@ inline void List<T>::clear()
 }
 
 template<typename T>
-T& List<T>::operator[](const int index)
+inline T& List<T>::operator[](const int index)
 {
 	int counter = 0;
 	Node<T>* current = this->head;
