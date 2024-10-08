@@ -8,9 +8,6 @@ class Product
     float rating = 0;
     int number_of_votes = 0;
 public:
-    Product()
-    {
-    }
     void read() const;
     void read_only_names(unsigned int) const;
     void set_name();
