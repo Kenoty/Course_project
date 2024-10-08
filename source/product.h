@@ -3,10 +3,10 @@
 
 class Product
 {
-    std::string name;
-    float price;
-    float rating;
-    int number_of_votes;
+    std::string name = " ";
+    float price = 0;
+    float rating = 0;
+    int number_of_votes = 0;
 public:
     Product(std::string name = " ", float price = 0, float rating = 0, int number_of_votes = 0)
     {

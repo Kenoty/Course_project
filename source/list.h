@@ -24,10 +24,6 @@ public:
 		this->size = size;
 		this->head = head;
 	}
-	~List()
-	{
-		clear();
-	}
 	int get_size();
 	void push_back();
 	void pop_front();
