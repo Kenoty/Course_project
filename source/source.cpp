@@ -51,4 +51,6 @@ int main()
             break;
         }
     }
+
+    courses.clear();
 }
