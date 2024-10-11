@@ -34,7 +34,7 @@ float Product::set_price()
     return price;
 }
 
-std::ostream& operator << (std::ostream& os, const Product product)
+std::ostream& operator << (std::ostream& os, const Product& product)
 {
     return os << "Name: " << product.name << "\nPrice: " << product.price << "\nRating: " << product.rating << '\n';
 }

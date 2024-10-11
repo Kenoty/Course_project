@@ -20,7 +20,6 @@ void output_product_info(List<Product> courses)
     for (int i = 0; i < courses.get_size(); i++)
     {
         std::cout << "Product number " << i + 1 << '\n';
-        //courses[i].read();
         std::cout << courses[i];
     }
     routine();

@@ -14,5 +14,5 @@ public:
     float set_price();
     void rate_the_course();
     bool operator == (const Product& product) const = default;
-    friend std::ostream& operator << (std::ostream&, const Product);
+    friend std::ostream& operator << (std::ostream&, const Product&);
 };
