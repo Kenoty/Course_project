@@ -20,7 +20,8 @@ void output_product_info(List<Product> courses)
     for (int i = 0; i < courses.get_size(); i++)
     {
         std::cout << "Product number " << i + 1 << '\n';
-        courses[i].read();
+        //courses[i].read();
+        std::cout << courses[i];
     }
     routine();
 }
@@ -73,5 +74,19 @@ void delete_product(List<Product>& courses)
     }
     else
         std::cout << "Courses are already do not exist\n";
+    routine();
+}
+
+void check_on_copies(List<Product> courses)
+{
+    for (int i = 0; i < courses.get_size(); i++)
+        for (int j = i + 1; j < courses.get_size(); j++)
+            if (courses[i] == courses[j])
+            {
+                std::cout << "There is copy of the product in list";
+                routine();
+                return;
+            }
+    std::cout << "There is no copies of the products in list";
     routine();
 }
