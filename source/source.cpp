@@ -3,6 +3,40 @@
 int main()
 {
     int action = 0;
+    User current_user;
+
+    while (action != 3)
+    {
+        switch (action)
+        {
+        case 0:
+            system("cls");
+            std::cout << "Welcome to the learning management system\n";
+            std::cout << "Select the number of the action you want to perform:\n";
+            std::cout << "1. Login\n";
+            std::cout << "2. Registration\n";
+            std::cout << "3. Exit\n";
+            std::cin >> action;
+            break;
+        case 1:
+            login(current_user);
+            action = 3;
+            break;
+        case 2:
+            registration();
+            getchar();
+            action = 0;
+            break;
+        default:
+            std::cout << "Input error, try again: ";
+            std::cin >> action;
+        }
+    }
+
+    if (!current_user.get_id())
+        return 0;
+
+    action = 0;
     List<Product> courses;
 
     while (action != 7)
@@ -22,11 +56,12 @@ int main()
             std::cin >> action;
             break;
         case 1:
-            create_the_product(courses);
+            create_the_product(courses, current_user);
             action = 0;
             break;
         case 2:
-            output_product_info(courses);
+            get_product_info(courses, current_user);
+            output_product_info(courses, current_user);
             action = 0;
             break;
         case 3:

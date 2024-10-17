@@ -1,5 +1,15 @@
 #include "product.h"
 
+void Product::set_id(int id)
+{
+    this->id = id;
+}
+
+int Product::get_id()
+{
+    return this->id;
+}
+
 void Product::read() const
 {
     std::cout << "Name: " << name << "\nPrice: " << price << "\nRating: " << rating << '\n';
@@ -11,11 +21,14 @@ void Product::read_only_names(unsigned int i) const
     std::cout << i << ". " << name << '\n';
 }
 
-void Product::set_name()
+void Product::set_name(std::string& name)
 {
-    std::cout << "Enter product name: ";
-    rewind(stdin);
-    std::getline(std::cin, name);
+    this->name = name;
+}
+
+std::string& Product::get_name()
+{
+    return this->name;
 }
 
 void Product::rate_the_course()
@@ -27,11 +40,34 @@ void Product::rate_the_course()
     number_of_votes++;
 }
 
-float Product::set_price()
+void Product::set_price(float price)
 {
-    std::cout << "Enter product price: ";
-    std::cin >> price;
+    this->price = price;
+}
+
+float Product::get_price()
+{
     return price;
+}
+
+void Product::set_rating(float rating)
+{
+    this->rating = rating;
+}
+
+float Product::get_rating()
+{
+    return rating;
+}
+
+void Product::set_number_of_votes(int number_of_votes)
+{
+    this->number_of_votes = number_of_votes;
+}
+
+int Product::get_number_of_votes()
+{
+    return number_of_votes;
 }
 
 std::ostream& operator << (std::ostream& os, const Product& product)
