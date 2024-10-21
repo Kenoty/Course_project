@@ -11,7 +11,7 @@ class User
 	std::string user_password;
 public:
 	void set_id(int);
-	int get_id();
+	int friend get_user_id(User user);
 	void set_fname(std::string&);
 	void set_sname(std::string&);
 	void set_lname(std::string&);

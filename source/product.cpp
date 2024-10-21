@@ -31,13 +31,13 @@ std::string& Product::get_name()
     return this->name;
 }
 
-void Product::rate_the_course()
+void rate_the_course(Product& course)
 {
     int temp;
     std::cout << "Rate this course from 0 to 5: ";
     std::cin >> temp;
-    rating = (rating * number_of_votes + temp) / (number_of_votes + 1);
-    number_of_votes++;
+    course.rating = (course.rating * course.number_of_votes + temp) / (course.number_of_votes + 1);
+    course.number_of_votes++;
 }
 
 void Product::set_price(float price)

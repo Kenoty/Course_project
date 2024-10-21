@@ -316,7 +316,7 @@ void delete_data(const std::string& conninfo, const std::string& table_name, con
         return;
     }
 
-    std::string sql = "DELETE FROM " + table_name + " WHERE id = " + id + ";";	//need more identifiers (probably add id)
+    std::string sql = "DELETE FROM " + table_name + " WHERE id = " + id + ";";
 
     PGresult* res = PQexec(conn, sql.c_str());
 
@@ -340,7 +340,7 @@ void create_the_product(List<Product>& courses, User& user)
 {
     const std::string conninfo = "dbname = course_project_db user = postgres password = 200kv14R6200 port = 5432";
     const std::string field_names = {"name, price, user_id"};
-    std::string values[] = {"course name", "course price", std::to_string(user.get_id())};
+    std::string values[] = {"course name", "course price", std::to_string(get_user_id(user))};
 
     for (int i = 0; i < std::size(values) - 1; i++)
         get_info(values[i]);
@@ -354,12 +354,12 @@ void get_product_info(List<Product>& courses, User& user)
     const std::string conninfo = "dbname = course_project_db user = postgres password = 200kv14R6200 port = 5432";
     const std::string field_names[] = { "name", "price", "rating", "number_of_votes", "id" };
 
-    const int nrows = get_nrows(conninfo, "courses WHERE user_id = " + std::to_string(user.get_id()), field_names, std::size(field_names));
-    const int nfields = get_nfields(conninfo, "courses WHERE user_id = " + std::to_string(user.get_id()), field_names, std::size(field_names));
+    const int nrows = get_nrows(conninfo, "courses WHERE user_id = " + std::to_string(get_user_id(user)), field_names, std::size(field_names));
+    const int nfields = get_nfields(conninfo, "courses WHERE user_id = " + std::to_string(get_user_id(user)), field_names, std::size(field_names));
 
     std::string* temp = new std::string[nrows * nfields];
 
-    temp = select_from_postgres(conninfo, "courses WHERE user_id = " + std::to_string(user.get_id()), field_names, temp, std::size(field_names));
+    temp = select_from_postgres(conninfo, "courses WHERE user_id = " + std::to_string(get_user_id(user)), field_names, temp, std::size(field_names));
 
     if (courses.get_size() != 0)
         courses.clear();
@@ -395,7 +395,7 @@ void rate_product(List<Product>& courses)
         courses[i].read_only_names(i + 1);
     std::cin >> order;
     order--;
-    courses[order].rate_the_course();
+    rate_the_course(courses[order]);
 
     const std::string conninfo = "dbname = course_project_db user = postgres password = 200kv14R6200 port = 5432";
     const std::string field_names[] = {"rating", "number_of_votes"};

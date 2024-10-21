@@ -5,9 +5,9 @@ void User::set_id(int value)
 	this->id = value;
 }
 
-int User::get_id()
+int get_user_id(User user)
 {
-	return this->id;
+	return user.id;
 }
 
 void User::set_fname(std::string& value)

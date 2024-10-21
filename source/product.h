@@ -21,7 +21,7 @@ public:
     float get_rating();
     void set_number_of_votes(int);
     int get_number_of_votes();
-    void rate_the_course();
+    void friend rate_the_course(Product&);
     bool operator == (const Product& product) const = default;
     friend std::ostream& operator << (std::ostream&, const Product&);
 };

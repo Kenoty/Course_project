@@ -33,7 +33,7 @@ int main()
         }
     }
 
-    if (!current_user.get_id())
+    if (!get_user_id(current_user))
         return 0;
 
     action = 0;
