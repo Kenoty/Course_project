@@ -1,15 +1,5 @@
 #include "user.h"
 
-void User::set_id(int value)
-{
-	this->id = value;
-}
-
-int get_user_id(User user)
-{
-	return user.id;
-}
-
 void User::set_fname(std::string& value)
 {
 	this->first_name = value;

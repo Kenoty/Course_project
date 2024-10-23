@@ -1,18 +1,14 @@
 #include <iostream>
 #include <string>
+#include "id.h"
 
-class Product
+class Product: public Id
 {
-    int id;
     std::string name = " ";
     float price = 0;
     float rating = 0;
     int number_of_votes = 0;
 public:
-    void set_id(int);
-    int get_id();
-    void read() const;
-    void read_only_names(unsigned int) const;
     void set_name(std::string&);
     std::string& get_name();
     void set_price(float);
@@ -21,6 +17,7 @@ public:
     float get_rating();
     void set_number_of_votes(int);
     int get_number_of_votes();
+    void read_only_names(unsigned int) const;
     void friend rate_the_course(Product&);
     bool operator == (const Product& product) const = default;
     friend std::ostream& operator << (std::ostream&, const Product&);

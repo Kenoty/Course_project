@@ -1,8 +1,8 @@
 #include <string>
+#include "id.h"
 
-class User
+class User: public Id
 {
-	int id = 0;
 	std::string first_name;
 	std::string second_name;
 	std::string last_name;
@@ -10,8 +10,6 @@ class User
 	std::string email;
 	std::string user_password;
 public:
-	void set_id(int);
-	int friend get_user_id(User user);
 	void set_fname(std::string&);
 	void set_sname(std::string&);
 	void set_lname(std::string&);

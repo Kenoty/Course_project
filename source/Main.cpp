@@ -24,7 +24,6 @@ int main()
             break;
         case 2:
             registration();
-            getchar();
             action = 0;
             break;
         default:
@@ -33,13 +32,13 @@ int main()
         }
     }
 
-    if (!get_user_id(current_user))
+    if (!current_user.get_id())
         return 0;
 
     action = 0;
     List<Product> courses;
 
-    while (action != 7)
+    while (action != 6)
     {
         switch (action)
         {
@@ -51,8 +50,7 @@ int main()
             std::cout << "3. Rate the product\n";
             std::cout << "4. Update information about the product\n";
             std::cout << "5. Delete the product\n";
-            std::cout << "6. Check list on copies\n";
-            std::cout << "7. Exit the program\n";
+            std::cout << "6. Exit the program\n";
             std::cin >> action;
             break;
         case 1:
@@ -61,7 +59,7 @@ int main()
             break;
         case 2:
             get_product_info(courses, current_user);
-            output_product_info(courses, current_user);
+            output_product_info(courses);
             action = 0;
             break;
         case 3:
@@ -74,10 +72,6 @@ int main()
             break;
         case 5:
             delete_product(courses);
-            action = 0;
-            break;
-        case 6:
-            check_on_copies(courses);
             action = 0;
             break;
         default:

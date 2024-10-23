@@ -1,20 +1,5 @@
 #include "product.h"
 
-void Product::set_id(int id)
-{
-    this->id = id;
-}
-
-int Product::get_id()
-{
-    return this->id;
-}
-
-void Product::read() const
-{
-    std::cout << "Name: " << name << "\nPrice: " << price << "\nRating: " << rating << '\n';
-}
-
 void Product::read_only_names(unsigned int i) const
 {
 
