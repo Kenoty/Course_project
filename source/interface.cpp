@@ -67,8 +67,7 @@ void login(User& current_user)
         std::cout << "Login fail. Try again" << std::endl;
         values[0] = "email";
         values[1] = "password";
-        for (int i = 0; i < std::size(values); i++)
-            get_info(values[i]);
+        std::ranges::for_each(values, get_info);
     }
     std::string temp[] = {"*"};
     std::string user_data[7];
