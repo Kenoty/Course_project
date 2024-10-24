@@ -1,6 +1,6 @@
 #include "database.h"
 
-int Database::get_nrows(const std::string& table_name, const std::string* field_names, const int length)
+int Database::get_nrows(const std::string& table_name, const std::string* field_names, const int length) const
 {
     PGconn* conn = PQconnectdb(this->conninfo.c_str());
 
@@ -40,7 +40,7 @@ int Database::get_nrows(const std::string& table_name, const std::string* field_
     return nrows;
 }
 
-int Database::get_nfields(const std::string& table_name, const std::string* field_names, const int length)
+int Database::get_nfields(const std::string& table_name, const std::string* field_names, const int length) const
 {
     PGconn* conn = PQconnectdb(this->conninfo.c_str());
 
@@ -80,7 +80,7 @@ int Database::get_nfields(const std::string& table_name, const std::string* fiel
     return nfields;
 }
 
-void Database::insert_data(const std::string& table_name, const std::string& field_names, const std::string& values)
+void Database::insert_data(const std::string& table_name, const std::string& field_names, const std::string& values) const
 {
     PGconn* conn = PQconnectdb(this->conninfo.c_str());
 
@@ -104,7 +104,7 @@ void Database::insert_data(const std::string& table_name, const std::string& fie
     PQfinish(conn);
 }
 
-void Database::update_field(const std::string& table_name, const std::string& field_name, const std::string& value, const std::string& id)
+void Database::update_field(const std::string& table_name, const std::string& field_name, const std::string& value, const std::string& id) const
 {
     PGconn* conn = PQconnectdb(this->conninfo.c_str());
 
@@ -128,7 +128,7 @@ void Database::update_field(const std::string& table_name, const std::string& fi
     PQfinish(conn);
 }
 
-void Database::delete_data(const std::string& table_name, const std::string& id)
+void Database::delete_data(const std::string& table_name, const std::string& id) const
 {
     PGconn* conn = PQconnectdb(this->conninfo.c_str());
 
@@ -200,7 +200,7 @@ std::string* Database::select_from_postgres(const std::string& table_name, const
     return values;
 }
 
-int Database::validation(const std::string& table_name, const std::string* field_names, const std::string* values, const int length)
+int Database::validation(const std::string& table_name, const std::string* field_names, const std::string* values, const int length) const
 {
     PGconn* conn = PQconnectdb(this->conninfo.c_str());
 
