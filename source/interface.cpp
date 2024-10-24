@@ -1,6 +1,7 @@
 #include "interface.h"
 #include "database.h"
 #include <algorithm>
+#include <format>
 
 void get_info(std::string& field)
 {
@@ -105,12 +106,12 @@ void get_product_info(List<Product>& courses, User& user)
     Database postgres;
     const std::string field_names[] = { "name", "price", "rating", "number_of_votes", "id" };
 
-    const int nrows = postgres.get_nrows("courses WHERE user_id = " + std::to_string(user.get_id()), field_names, std::size(field_names));
-    const int nfields = postgres.get_nfields("courses WHERE user_id = " + std::to_string(user.get_id()), field_names, std::size(field_names));
+    const int nrows = postgres.get_nrows(std::format("courses WHERE user_id = {}", user.get_id()), field_names, std::size(field_names));
+    const int nfields = postgres.get_nfields(std::format("courses WHERE user_id = {}", user.get_id()), field_names, std::size(field_names));
 
     std::string* temp = new std::string[nrows * nfields];
 
-    temp = postgres.select_from_postgres("courses WHERE user_id = " + std::to_string(user.get_id()), field_names, temp, std::size(field_names));
+    temp = postgres.select_from_postgres(std::format("courses WHERE user_id = {}", user.get_id()), field_names, temp, std::size(field_names));
 
     if (courses.get_size() != 0)
         courses.clear();
