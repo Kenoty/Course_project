@@ -10,13 +10,13 @@ class Product: public Id
     int number_of_votes = 0;
 public:
     void set_name(const std::string&);
-    std::string& get_name();
+    std::string get_name() const;
     void set_price(float);
-    float get_price();
+    float get_price() const;
     void set_rating(float);
-    float get_rating();
+    float get_rating() const;
     void set_number_of_votes(int);
-    int get_number_of_votes();
+    int get_number_of_votes() const;
     void read_only_names(unsigned int) const;
     friend void rate_the_course(Product&);
     bool operator == (const Product& product) const = default;

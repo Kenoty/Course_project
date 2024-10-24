@@ -9,7 +9,7 @@ void get_info(std::string&);
 
 //Course management
 void routine();
-void create_the_product(User& user);
+void create_the_product(const User& user);
 void output_product_info(List<Product>&);
 void rate_product(List<Product>&);
 void update_info(List<Product>&);

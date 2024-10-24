@@ -89,7 +89,7 @@ void routine()
     getchar();
 }
 
-void create_the_product(User& user)
+void create_the_product(const User& user)
 {
     Database postgres;
     const std::string field_names = {"name, price, user_id"};

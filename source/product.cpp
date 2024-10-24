@@ -11,7 +11,7 @@ void Product::set_name(const std::string& value)
     this->name = value;
 }
 
-std::string& Product::get_name()
+std::string Product::get_name() const
 {
     return this->name;
 }
@@ -30,7 +30,7 @@ void Product::set_price(float value)
     this->price = value;
 }
 
-float Product::get_price()
+float Product::get_price() const
 {
     return price;
 }
@@ -40,7 +40,7 @@ void Product::set_rating(float value)
     this->rating = value;
 }
 
-float Product::get_rating()
+float Product::get_rating() const
 {
     return rating;
 }
@@ -50,7 +50,7 @@ void Product::set_number_of_votes(int value)
     this->number_of_votes = value;
 }
 
-int Product::get_number_of_votes()
+int Product::get_number_of_votes() const
 {
     return number_of_votes;
 }
