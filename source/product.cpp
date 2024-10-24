@@ -6,7 +6,7 @@ void Product::read_only_names(unsigned int i) const
     std::cout << i << ". " << name << '\n';
 }
 
-void Product::set_name(const std::string& value)
+void Product::set_name(const std::string_view value)
 {
     this->name = value;
 }

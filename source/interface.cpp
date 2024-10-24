@@ -1,5 +1,6 @@
 #include "interface.h"
 #include "database.h"
+#include <algorithm>
 
 void get_info(std::string& field)
 {
@@ -25,8 +26,7 @@ void registration()
     const std::string field_names[] = {"first_name", "second_name", "last_name", "email", "phone_number", "user_password"};
     std::string values[] = {"first name", "second name", "last name", "email", "phone number", "password"};
 
-    for (int i = 0; i < std::size(values); i++)
-        get_info(values[i]);
+    std::ranges::for_each(values, get_info);
 
     std::string temp_fnames = "";
     std::string temp_values = "'";
@@ -59,8 +59,7 @@ void login(User& current_user)
     const std::string field_names[] = {"email", "user_password"};
     std::string values[] = {"email", "password"};
 
-    for (int i = 0; i < std::size(values); i++)
-        get_info(values[i]);
+    std::ranges::for_each(values, get_info);
 
     while (!postgres.validation("users", field_names, values, std::size(values)))
     {
@@ -95,8 +94,7 @@ void create_the_product(const User& user)
     const std::string field_names = {"name, price, user_id"};
     std::string values[] = {"course name", "course price", std::to_string(user.get_id())};
 
-    for (int i = 0; i < std::size(values) - 1; i++)
-        get_info(values[i]);
+    std::ranges::for_each(values, get_info);
     std::string temp = "'" + values[0] + "', '" + values[1] + "', " + values[2];
     postgres.insert_data("courses", field_names, temp);
     routine();

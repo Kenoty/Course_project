@@ -9,7 +9,7 @@ class Product: public Id
     float rating = 0;
     int number_of_votes = 0;
 public:
-    void set_name(const std::string&);
+    void set_name(const std::string_view);
     std::string get_name() const;
     void set_price(float);
     float get_price() const;
