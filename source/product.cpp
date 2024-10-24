@@ -6,9 +6,9 @@ void Product::read_only_names(unsigned int i) const
     std::cout << i << ". " << name << '\n';
 }
 
-void Product::set_name(std::string& name)
+void Product::set_name(const std::string& value)
 {
-    this->name = name;
+    this->name = value;
 }
 
 std::string& Product::get_name()
@@ -25,9 +25,9 @@ void rate_the_course(Product& course)
     course.number_of_votes++;
 }
 
-void Product::set_price(float price)
+void Product::set_price(float value)
 {
-    this->price = price;
+    this->price = value;
 }
 
 float Product::get_price()
@@ -35,9 +35,9 @@ float Product::get_price()
     return price;
 }
 
-void Product::set_rating(float rating)
+void Product::set_rating(float value)
 {
-    this->rating = rating;
+    this->rating = value;
 }
 
 float Product::get_rating()
@@ -45,9 +45,9 @@ float Product::get_rating()
     return rating;
 }
 
-void Product::set_number_of_votes(int number_of_votes)
+void Product::set_number_of_votes(int value)
 {
-    this->number_of_votes = number_of_votes;
+    this->number_of_votes = value;
 }
 
 int Product::get_number_of_votes()

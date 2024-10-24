@@ -73,7 +73,7 @@ void login(User& current_user)
     std::string temp[] = {"*"};
     std::string user_data[7];
     postgres.select_from_postgres("users WHERE email = '" + values[0] + "'", temp, user_data, 1);
-    current_user.set_id((std::stoi(user_data[0])));
+    current_user.set_id(std::stoi(user_data[0]));
     current_user.set_fname(user_data[1]);
     current_user.set_sname(user_data[2]);
     current_user.set_lname(user_data[3]);
@@ -89,7 +89,7 @@ void routine()
     getchar();
 }
 
-void create_the_product(List<Product>& courses, User& user)
+void create_the_product(User& user)
 {
     Database postgres;
     const std::string field_names = {"name, price, user_id"};

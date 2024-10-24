@@ -54,7 +54,7 @@ int main()
             std::cin >> action;
             break;
         case 1:
-            create_the_product(courses, current_user);
+            create_the_product(current_user);
             action = 0;
             break;
         case 2:
