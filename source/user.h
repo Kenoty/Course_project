@@ -10,10 +10,10 @@ class User: public Id
 	std::string email;
 	std::string user_password;
 public:
-	void set_fname(const std::string&);
-	void set_sname(const std::string&);
-	void set_lname(const std::string&);
-	void set_phone_number(const std::string&);
-	void set_email(const std::string&);
-	void set_user_password(const std::string&);
+	void set_fname(const std::string_view);
+	void set_sname(const std::string_view);
+	void set_lname(const std::string_view);
+	void set_phone_number(const std::string_view);
+	void set_email(const std::string_view);
+	void set_user_password(const std::string_view);
 };
