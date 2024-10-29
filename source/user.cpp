@@ -29,3 +29,8 @@ void User::set_user_password(const std::string_view value)
 {
 	this->user_password = value;
 }
+
+void User::set_role(const std::string_view value)
+{
+	this->role = value;
+}
