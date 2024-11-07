@@ -1,4 +1,5 @@
 #include "database.h"
+#include <string>
 
 int Database::get_nrows(const std::string& table_name, const std::string* field_names, const int length) const
 {
@@ -200,48 +201,20 @@ std::string* Database::select_from_postgres(const std::string& table_name, const
     return values;
 }
 
-int Database::validation(const std::string& table_name, const std::string* field_names, const std::string* values, const int length) const
+void Database::get_info(std::string& field)
 {
-    PGconn* conn = PQconnectdb(this->conninfo.c_str());
-
-    if (PQstatus(conn) != CONNECTION_OK)
+    std::cout << "Enter your " + field + ": ";
+    rewind(stdin);
+    if (field != "last name")
     {
-        std::cerr << "Connection to database failed: " << PQerrorMessage(conn) << std::endl;
-        PQfinish(conn);
-        return -1;
-    }
-
-    std::string temp_fnames = "";
-    for (int i = 0; i < length; i++)
-    {
-        if (i != length - 1)
-            temp_fnames = temp_fnames + field_names[i] + ", ";
-        else
-            temp_fnames += field_names[i];
-    }
-
-    std::string sql = "SELECT " + temp_fnames + " FROM " + table_name + ";";
-
-    PGresult* res = PQexec(conn, sql.c_str());
-
-    if (PQresultStatus(res) != PGRES_TUPLES_OK)
-    {
-        std::cerr << "SELECT FAILED: " << PQerrorMessage(conn) << std::endl;
-        PQclear(res);
-        PQfinish(conn);
-        return -1;
-    }
-
-    int nrows = PQntuples(res);
-    for (int i = 0; i < nrows; i++)
-        if (values[0] == PQgetvalue(res, i, 0) && values[1] == PQgetvalue(res, i, 1))
+        std::getline(std::cin, field);
+        while (field == "")
         {
-            PQclear(res);
-            PQfinish(conn);
-            return 1;
+            std::cout << "It cannot be empty. Try again: ";
+            rewind(stdin);
+            std::getline(std::cin, field);
         }
-
-    PQclear(res);
-    PQfinish(conn);
-    return 0;
+    }
+    else
+        std::getline(std::cin, field);
 }
