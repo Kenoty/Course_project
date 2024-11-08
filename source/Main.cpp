@@ -1,29 +1,30 @@
-﻿#include "interface.h"
+﻿#include "authorization_menu.h"
+#include "mentor.h"
 
 int main()
 {
     int action = 0;
-    User current_user;
+    User_info guest;
+    IMenu* menu;
+    Authorization_menu auth_menu;
 
+    menu = &auth_menu;
+
+ /*   menu->choose_option();*/
     while (action != 3)
     {
         switch (action)
         {
         case 0:
-            system("cls");
-            std::cout << "Welcome to the learning management system\n";
-            std::cout << "Select the number of the action you want to perform:\n";
-            std::cout << "1. Login\n";
-            std::cout << "2. Registration\n";
-            std::cout << "3. Exit\n";
+            menu->output_menu();
             std::cin >> action;
             break;
         case 1:
-            login(current_user);
+            auth_menu.login(guest);
             action = 3;
             break;
         case 2:
-            registration();
+            auth_menu.registration();
             action = 0;
             break;
         default:
@@ -32,46 +33,41 @@ int main()
         }
     }
 
-    if (!current_user.get_id())
+    if (!guest.get_id())
         return 0;
 
-    action = 0;
-    List<Product> courses;
+    Mentor current_user(0, 0, guest);
 
-    while (action != 6)
+    menu = &current_user;
+    action = 0;
+    //menu->choose_option();
+    while (action != 5)
     {
         switch (action)
         {
         case 0:
-            system("cls");
-            std::cout << "Select the action you want to do and print the number\n";
-            std::cout << "1. Create the product\n";
-            std::cout << "2. Output information about the product\n";
-            std::cout << "3. Rate the product\n";
-            std::cout << "4. Update information about the product\n";
-            std::cout << "5. Delete the product\n";
-            std::cout << "6. Exit the program\n";
+            menu->output_menu();
             std::cin >> action;
             break;
         case 1:
-            create_the_product(current_user);
+            current_user.create_course();
+            menu->routine();
             action = 0;
             break;
         case 2:
-            get_product_info(courses, current_user);
-            output_product_info(courses);
+            current_user.get_course_info();
+            current_user.output_course_info();
+            menu->routine();
             action = 0;
             break;
         case 3:
-            rate_product(courses);
+            current_user.update_course_info();
+            menu->routine();
             action = 0;
             break;
         case 4:
-            update_info(courses);
-            action = 0;
-            break;
-        case 5:
-            delete_product(courses);
+            current_user.delete_course();
+            menu->routine();
             action = 0;
             break;
         default:
@@ -80,6 +76,4 @@ int main()
             break;
         }
     }
-
-    courses.clear();
 }
