@@ -2,7 +2,7 @@
 #include <string>
 #include <algorithm>
 
-void Authorization_menu::registration()
+void AuthorizationMenu::registration()
 {
     Database postgres;
     const std::string field_names[] = { "first_name", "second_name", "last_name", "email", "phone_number", "user_password", "role" };
@@ -10,8 +10,6 @@ void Authorization_menu::registration()
 
     for (int i = 0; i < size(values); i++)
         postgres.get_info(values[i]);
-
- /*   std::ranges::for_each(values, menu, get_info);*/
 
     std::string temp_fnames = "";
     std::string temp_values = "'";
@@ -38,13 +36,11 @@ void Authorization_menu::registration()
     getchar();
 }
 
-void Authorization_menu::login(User_info& current_user)
+void AuthorizationMenu::login(UserInfo& current_user)
 {
     Database postgres;
     const std::string field_names[] = { "email", "user_password" };
     std::string values[] = { "email", "password" };
-
-    //std::ranges::for_each(values, get_info);
 
     for (int i = 0; i < size(values); i++)
         postgres.get_info(values[i]);
@@ -54,7 +50,6 @@ void Authorization_menu::login(User_info& current_user)
         std::cout << "Login fail. Try again" << std::endl;
         values[0] = "email";
         values[1] = "password";
-  /*      std::ranges::for_each(values, get_info);*/
 
         for (int i = 0; i < size(values); i++)
             postgres.get_info(values[i]);
@@ -72,7 +67,7 @@ void Authorization_menu::login(User_info& current_user)
     current_user.set_role(user_data[7]);
 }
 
-int Authorization_menu::validation(const std::string* field_names, const std::string* values, const int length) const
+int AuthorizationMenu::validation(const std::string* field_names, const std::string* values, const int length) const
 {
     PGconn* conn = PQconnectdb(this->conninfo.c_str());
 
@@ -118,7 +113,7 @@ int Authorization_menu::validation(const std::string* field_names, const std::st
     return 0;
 }
 
-void  Authorization_menu::output_menu()
+void  AuthorizationMenu::output_menu()
 {
     system("cls");
     std::cout << "Welcome to the learning management system\n";
@@ -126,4 +121,35 @@ void  Authorization_menu::output_menu()
     std::cout << "1. Login\n";
     std::cout << "2. Registration\n";
     std::cout << "3. Exit\n";
+}
+
+//void Authorization_menu::choose_option(User_info& guest)
+//{
+//    int action = 0;
+//    while (action != 3)
+//    {
+//        switch (action)
+//        {
+//        case 0:
+//            output_menu();
+//            std::cin >> action;
+//            break;
+//        case 1:
+//            login(guest);
+//            action = 3;
+//            break;
+//        case 2:
+//            registration();
+//            action = 0;
+//            break;
+//        default:
+//            std::cout << "Input error, try again: ";
+//            std::cin >> action;
+//        }
+//    }
+//}
+
+void AuthorizationMenu::choose_option()
+{
+    return IMenu::choose_option();
 }
