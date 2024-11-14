@@ -1,9 +1,8 @@
 #include <iostream>
 #include <string>
 #include "id.h"
-//#include "product_interface.h"
 
-class Course: public Id//, public IProduct_database
+class Course: public Id
 {
     std::string name = " ";
     float price = 0;
