@@ -108,8 +108,48 @@ void Mentor::output_menu()
     std::cout << "Select the action you want to do and print the number\n";
     std::cout << "1. Create the product\n";
     std::cout << "2. Output information about the product\n";
-    std::cout << "3. Rate the product\n";
-    std::cout << "4. Update information about the product\n";
-    std::cout << "5. Delete the product\n";
-    std::cout << "6. Exit the program\n";
+    std::cout << "3. Update information about the product\n";
+    std::cout << "4. Delete the product\n";
+    std::cout << "5. Exit the program\n";
+}
+
+void Mentor::choose_option()
+{
+    int action = 0;
+
+    while (action != 5)
+    {
+        switch (action)
+        {
+        case 0:
+            output_menu();
+            std::cin >> action;
+            break;
+        case 1:
+            create_course();
+            routine();
+            action = 0;
+            break;
+        case 2:
+            get_course_info();
+            output_course_info();
+            routine();
+            action = 0;
+            break;
+        case 3:
+            update_course_info();
+            routine();
+            action = 0;
+            break;
+        case 4:
+            delete_course();
+            routine();
+            action = 0;
+            break;
+        default:
+            std::cout << "Input error, try again: ";
+            std::cin >> action;
+            break;
+        }
+    }
 }
