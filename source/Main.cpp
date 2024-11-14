@@ -4,9 +4,9 @@
 int main()
 {
     int action = 0;
-    User_info guest;
+    UserInfo guest;
     IMenu* menu;
-    Authorization_menu auth_menu;
+    AuthorizationMenu auth_menu;
 
     menu = &auth_menu;
 
