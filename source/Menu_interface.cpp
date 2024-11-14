@@ -7,3 +7,8 @@ void IMenu::routine()
     rewind(stdin);
     getchar();
 }
+
+void IMenu::choose_option()
+{
+    std::cout << "Something goes wrong. Try again later";
+}
