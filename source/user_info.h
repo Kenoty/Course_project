@@ -5,7 +5,7 @@
 #include "wallet.h"
 
 
-class User_info: public Id, public Wallet
+class UserInfo: public Id, public Wallet
 {
 	std::string first_name;
 	std::string second_name;
@@ -15,7 +15,7 @@ class User_info: public Id, public Wallet
 	std::string user_password;
 	std::string role;
 public:
-	User_info(std::string f_name = "", std::string s_name = "", std::string l_name = "", std::string ph_num = "", std::string email = "", std::string user_password = "", std::string role = ""): Id(), Wallet()
+	UserInfo(std::string f_name = "", std::string s_name = "", std::string l_name = "", std::string ph_num = "", std::string email = "", std::string user_password = "", std::string role = ""): Id(), Wallet()
 	{
 		this->first_name = f_name;
 		this->second_name = s_name;
