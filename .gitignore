@@ -9,3 +9,9 @@ source.sln
 source.vcxproj
 source.vcxproj.filters
 source.vcxproj.user
+
+#CMake
+CMakeLists.txt
+
+#ClassDiagram
+*.cd
