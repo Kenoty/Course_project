@@ -1,4 +1,6 @@
 #Build files
+bin
+build
 x64
 
 #Solution file
@@ -12,6 +14,7 @@ source.vcxproj.user
 
 #CMake
 CMakeLists.txt
+CMakeLists.txt.user
 
 #ClassDiagram
 *.cd
