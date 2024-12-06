@@ -2,22 +2,22 @@
 #include <string>
 #include <algorithm>
 
-void AuthorizationMenu::registration()
+void AuthorizationMenu::registration(std::string* values)
 {
     Database postgres;
     const std::string field_names[] = { "first_name", "second_name", "last_name", "email", "phone_number", "user_password", "role" };
-    std::string values[] = { "first name", "second name", "last name", "email", "phone number", "password", "role" };
+    //std::string values[] = { "first name", "second name", "last name", "email", "phone number", "password", "role" };
 
-    for (int i = 0; i < size(values); i++)
-        postgres.get_info(values[i]);
+    //for (int i = 0; i < size(values); i++)
+        //postgres.get_info(values[i]);
 
     std::string temp_fnames = "";
     std::string temp_values = "'";
-    for (int i = 0; i < std::size(values); i++)
+    for (int i = 0; i < std::size(field_names); i++)
     {
         if (values[i] != "")
         {
-            if (i != std::size(values) - 1)
+            if (i != std::size(field_names) - 1)
             {
                 temp_fnames = temp_fnames + field_names[i] + ", ";
                 temp_values = temp_values + values[i] + "', '";
@@ -30,33 +30,38 @@ void AuthorizationMenu::registration()
         }
     }
 
-    postgres.insert_data(this->table_name, temp_fnames, temp_values);
+    postgres.insert_data("users", temp_fnames, temp_values);
 
     std::cout << "Registration was successful!" << std::endl << "Press enter to continue ";
     getchar();
 }
 
-void AuthorizationMenu::login(UserInfo& current_user)
+void AuthorizationMenu::login(UserInfo& current_user, std::string *ptr_values)
 {
     Database postgres;
-    const std::string field_names[] = { "email", "user_password" };
-    std::string values[] = { "email", "password" };
+    const std::string field_names[] = {"email", "user_password"};
 
-    for (int i = 0; i < size(values); i++)
-        postgres.get_info(values[i]);
+    //std::string values[] = {"email", "password"};
+    //std::string *values;
+    //for (int i = 0; i < size(values); i++)
+    //    postgres.get_info(values[i]);
 
-    while (!validation(field_names, values, std::size(values)))
+    //if(ptr_values == nullptr)
+    //    return;
+
+    /*while (!validation(field_names, ptr_values, std::size(field_names)))
     {
         std::cout << "Login fail. Try again" << std::endl;
-        values[0] = "email";
-        values[1] = "password";
+        ptr_values[0] = "email";
+        ptr_values[1] = "password";
 
-        for (int i = 0; i < size(values); i++)
-            postgres.get_info(values[i]);
-    }
+        for (int i = 0; i < size(field_names); i++)
+            postgres.get_info(ptr_values[i]);
+    }*/
+
     std::string temp[] = { "*" };
     std::string user_data[8];
-    postgres.select_from_postgres("users WHERE email = '" + values[0] + "'", temp, user_data, 1);
+    postgres.select_from_postgres("users WHERE email = '" + ptr_values[0] + "'", temp, user_data, 1);
     current_user.set_id(std::stoi(user_data[0]));
     current_user.set_fname(user_data[1]);
     current_user.set_sname(user_data[2]);
@@ -67,8 +72,10 @@ void AuthorizationMenu::login(UserInfo& current_user)
     current_user.set_role(user_data[7]);
 }
 
-int AuthorizationMenu::validation(const std::string* field_names, const std::string* values, const int length) const
+int AuthorizationMenu::validation(const std::string* values, const int length) const
 {
+    const std::string field_names[] = {"email", "user_password"};
+
     PGconn* conn = PQconnectdb(this->conninfo.c_str());
 
     if (PQstatus(conn) != CONNECTION_OK)

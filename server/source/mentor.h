@@ -10,7 +10,7 @@ class Mentor: public UserInfo, public IMenu, public ICourse
 	int number_of_votes;
 	List<Course> courses;
 public:
-	Mentor(float rating = 0, int num = 0,const UserInfo& current_user = UserInfo()): UserInfo(current_user), rating(rating), number_of_votes(num), courses(List<Course>())
+    Mentor(const UserInfo& current_user = UserInfo(), float rating = 0, int num = 0): UserInfo(current_user), rating(rating), number_of_votes(num), courses(List<Course>())
 	{
 		get_course_info();
 	}
