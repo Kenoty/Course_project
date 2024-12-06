@@ -1,15 +1,10 @@
 #include "authorization_menu.h"
 #include <string>
-#include <algorithm>
 
 void AuthorizationMenu::registration(std::string* values)
 {
     Database postgres;
     const std::string field_names[] = { "first_name", "second_name", "last_name", "email", "phone_number", "user_password", "role" };
-    //std::string values[] = { "first name", "second name", "last name", "email", "phone number", "password", "role" };
-
-    //for (int i = 0; i < size(values); i++)
-        //postgres.get_info(values[i]);
 
     std::string temp_fnames = "";
     std::string temp_values = "'";
@@ -40,24 +35,6 @@ void AuthorizationMenu::login(UserInfo& current_user, std::string *ptr_values)
 {
     Database postgres;
     const std::string field_names[] = {"email", "user_password"};
-
-    //std::string values[] = {"email", "password"};
-    //std::string *values;
-    //for (int i = 0; i < size(values); i++)
-    //    postgres.get_info(values[i]);
-
-    //if(ptr_values == nullptr)
-    //    return;
-
-    /*while (!validation(field_names, ptr_values, std::size(field_names)))
-    {
-        std::cout << "Login fail. Try again" << std::endl;
-        ptr_values[0] = "email";
-        ptr_values[1] = "password";
-
-        for (int i = 0; i < size(field_names); i++)
-            postgres.get_info(ptr_values[i]);
-    }*/
 
     std::string temp[] = { "*" };
     std::string user_data[8];
@@ -129,32 +106,6 @@ void  AuthorizationMenu::output_menu()
     std::cout << "2. Registration\n";
     std::cout << "3. Exit\n";
 }
-
-//void Authorization_menu::choose_option(User_info& guest)
-//{
-//    int action = 0;
-//    while (action != 3)
-//    {
-//        switch (action)
-//        {
-//        case 0:
-//            output_menu();
-//            std::cin >> action;
-//            break;
-//        case 1:
-//            login(guest);
-//            action = 3;
-//            break;
-//        case 2:
-//            registration();
-//            action = 0;
-//            break;
-//        default:
-//            std::cout << "Input error, try again: ";
-//            std::cin >> action;
-//        }
-//    }
-//}
 
 void AuthorizationMenu::choose_option()
 {

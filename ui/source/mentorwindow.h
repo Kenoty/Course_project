@@ -20,7 +20,6 @@ public:
     MentorWindow(QWidget *parent = nullptr);
 
 protected:
-    //void paintEvent(QPaintEvent *event);
 
 signals:
 
@@ -30,7 +29,6 @@ private:
     QHBoxLayout *centralLayout;
     QVBoxLayout *listOfCoursesLayout;
     QScrollArea *listOfCoursesTab;
-    //QPushButton *
 };
 
 #endif // MENTORWINDOW_H

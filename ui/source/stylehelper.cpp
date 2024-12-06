@@ -35,7 +35,7 @@ QString StyleHelper::getButtonsStyle()
                 font-size: 14px;
                 color: white;
             }
-                )";             //qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(254, 182, 146, 255), stop:1 rgba(234, 84, 85, 255))
+                )";
 }
 
 QString StyleHelper::getLabelsStyle()

@@ -14,10 +14,7 @@ AuthorizationWindow::AuthorizationWindow(QWidget *parent)
     StyleHelper obj;
     StyleHelper *helper = &obj;
 
-
     mentor = nullptr;
-
-    //this->setWindowTitle("aaasd");
 
     central_widget = new QWidget(this);
     setCentralWidget(central_widget);
@@ -30,14 +27,6 @@ AuthorizationWindow::AuthorizationWindow(QWidget *parent)
     authorization_box = new QGroupBox();
     authorization_box->setFixedSize(320, 360);
     authorization_box->setStyleSheet(helper->getLinesStyle() + helper->getBoxStyle() + helper->getLabelsStyle());
-
-    //QGraphicsDropShadowEffect *shadowEffect = new QGraphicsDropShadowEffect();
-    //shadowEffect->setBlurRadius(10);
-    //shadowEffect->setXOffset(5);
-    //shadowEffect->setYOffset(5);
-    //shadowEffect->setColor(Qt::black);
-
-    //authorization_box->setGraphicsEffect(shadowEffect);
 
     window_layout->addWidget(authorization_box);
     window_layout->setAlignment(authorization_box, Qt::AlignCenter);
@@ -59,13 +48,10 @@ AuthorizationWindow::AuthorizationWindow(QWidget *parent)
     vertical_layout->addWidget(authorization_button);
 
     email_label = new QLabel ("Эл. почта");
-    //email_label->setStyleSheet("color: black;");
 
     password_label = new QLabel ("Пароль");
-    //password_label->setStyleSheet("color: black;");
 
     email_line = new MyLineEdit();
-    //email_line->setStyleSheet(StyleHelper::getLinesStyle());
     connect(email_line, &QLineEdit::textChanged, this, &AuthorizationWindow::update_authorization_button_state);
 
     password_line = new MyLineEdit();
@@ -78,7 +64,6 @@ AuthorizationWindow::AuthorizationWindow(QWidget *parent)
     password_horizontal_layout->addWidget(password_line);
 
     registration_label = new ClickableLabel("Регистрация");
-    //registration_label->setStyleSheet("color: black");
     registration_label->setFixedSize(74, 20);
     connect(registration_label, &ClickableLabel::clicked, this, &AuthorizationWindow::replace_with_registration_window);
 
@@ -108,15 +93,6 @@ AuthorizationWindow::~AuthorizationWindow()
         delete mentor;
 }
 
-//void AuthorizationWindow::paintEvent(QPaintEvent *event)
-//{
-   // QStyleOption option;
-   // option.initFrom(central_widget);
-   // QPainter painter;
-   // central_widget->style()->drawPrimitive(QStyle::PE_Widget, &option, &painter, central_widget);
-    //QMainWindow::paintEvent(event);
-//}
-
 void AuthorizationWindow::on_authorization_button_clicked()
 {
     QString login = email_line->text();
@@ -131,10 +107,6 @@ void AuthorizationWindow::on_authorization_button_clicked()
     {
         menu.login(guest, values);
     }
-    //else
-    //{
-
-    //}
 
     if(guest.get_role() == "MENTOR")
     {

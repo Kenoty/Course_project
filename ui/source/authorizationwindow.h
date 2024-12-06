@@ -25,7 +25,6 @@ public:
     ~AuthorizationWindow();
 
 protected:
-    //void paintEvent(QPaintEvent *event);
 
 signals:
 

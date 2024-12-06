@@ -21,8 +21,6 @@ AnimatedButton::AnimatedButton(const QString &text, QWidget *parent)
 
 void AnimatedButton::mousePressEvent(QMouseEvent *event)
 {
-    //shadowOpacityAnimation->setStartValue(QColor(238, 103, 97, 127));
-    //shadowOpacityAnimation->setEndValue(QColor(238, 103, 97, 0));
     shadowOpacityAnimation->setStartValue(QColor(138, 33, 182, 127));
     shadowOpacityAnimation->setEndValue(QColor(138, 33, 182, 0));
     shadowOpacityAnimation->start();

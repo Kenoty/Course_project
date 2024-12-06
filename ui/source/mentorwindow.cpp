@@ -35,14 +35,4 @@ MentorWindow::MentorWindow(QWidget *parent)
     listOfCoursesTab->setWidget(listOfCoursesContent);
 
     mainTabWidget->addTab(listOfCoursesTab, "Мои курсы");
-
 }
-
-//void MentorWindow::paintEvent(QPaintEvent *event)
-//{
-   // QStyleOption option;
-  //  option.initFrom(centralWidget);
-  //  QPainter painter;
-  //  centralWidget->style()->drawPrimitive(QStyle::PE_Widget, &option, &painter, centralWidget);
-  //  QMainWindow::paintEvent(event);
-//}

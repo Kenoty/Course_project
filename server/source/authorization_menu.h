@@ -10,6 +10,5 @@ public:
     void login(UserInfo&, std::string *ptr_values);
     int validation(const std::string* values, const int length) const;
 	void output_menu();
-	//void choose_option(User_info&);
 	void choose_option();
 };

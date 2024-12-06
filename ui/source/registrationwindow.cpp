@@ -49,7 +49,6 @@ RegistrationWindow::RegistrationWindow(QWidget *parent)
     for(int i = 0; i < 6; i++)
     {
         arrayLine[i] = new QLineEdit();
-        //arrayLine[i]->setStyleSheet(helper->getLinesStyle());
     }
 
     roleField = new QComboBox();
