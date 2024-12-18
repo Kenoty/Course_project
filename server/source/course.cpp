@@ -1,58 +1,63 @@
 #include "course.h"
 
-void Course::read_only_names(unsigned int i) const
+void Course::readOnlyNames(unsigned int i) const
 {
 
     std::cout << i << ". " << name << '\n';
 }
 
-void Course::set_name(const std::string_view value)
+List<Lecture>& Course::getLecturesList()
+{
+    return lectures;
+}
+
+void Course::setName(const std::string_view value)
 {
     this->name = value;
 }
 
-std::string Course::get_name() const
+std::string Course::getName() const
 {
     return this->name;
 }
 
-void rate_the_course(Course& course)
+void rateTheCourse(Course& course)
 {
     int temp;
     std::cout << "Rate this course from 0 to 5: ";
     std::cin >> temp;
-    course.rating = (course.rating * course.number_of_votes + temp) / (course.number_of_votes + 1);
-    course.number_of_votes++;
+    course.rating = (course.rating * course.numberOfVotes + temp) / (course.numberOfVotes + 1);
+    course.numberOfVotes++;
 }
 
-void Course::set_price(float value)
+void Course::setPrice(float value)
 {
     this->price = value;
 }
 
-float Course::get_price() const
+float Course::getPrice() const
 {
     return price;
 }
 
-void Course::set_rating(float value)
+void Course::setRating(float value)
 {
     this->rating = value;
 }
 
-float Course::get_rating() const
+float Course::getRating() const
 {
     return rating;
 }
 
-void Course::set_number_of_votes(int value)
+void Course::setNumberOfVotes(int value)
 {
-    this->number_of_votes = value;
+    this->numberOfVotes = value;
 }
 
-int Course::get_number_of_votes() const
+int Course::getNumberOfVotes() const
 {
-    return number_of_votes;
+    return numberOfVotes;
 }
 
 std::ostream& operator << (std::ostream& os, const Course& course)

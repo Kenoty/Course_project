@@ -1,14 +1,17 @@
 #pragma once
 
-#include <iostream>
+#include <string>
 
-class Lecture
+#include "id.h"
+
+class Lecture: public Id
 {
+    std::string lectureName;
 	std::string material;
-	std::string link_to_video;
 public:
-	void set_material(std::string_view);
-	std::string get_material();
-	void set_link(std::string_view);
-	std::string get_link();
+    Lecture(std::string text = "", std::string link = "");
+    void setLectureName(std::string_view);
+    std::string getLectureName();
+    void setMaterial(std::string_view);
+    std::string getMaterial();
 };

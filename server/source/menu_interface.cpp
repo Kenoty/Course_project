@@ -8,7 +8,7 @@ void IMenu::routine()
     getchar();
 }
 
-void IMenu::choose_option()
+void IMenu::chooseOption()
 {
     std::cout << "Something goes wrong. Try again later";
 }

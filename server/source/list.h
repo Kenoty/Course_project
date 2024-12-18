@@ -1,47 +1,42 @@
 #pragma once
 
+#include "node.h"
+#include "listiterator.h"
+
 template<typename T>
 class List
 {
 	int size;
-    template<typename V>
-	class Node
-	{
-	public:
-		Node *next;
-        V data;
-
-        Node(V data = V(), Node* next = nullptr)
-		{
-			this->next = next;
-			this->data = data;
-		}
-	};
 	Node<T> *head;
+public:
+    using Iterator = ListIterator<T>;
 public:
 	List(int size = 0, Node<T>* head = nullptr)
 	{
 		this->size = size;
 		this->head = head;
 	}
-	int get_size();
-	void push_back();
-	void pop_front();
-	void remove_object(const int index);
+    int getSize();
+    void pushBack();
+    void popFront();
+    void removeObject(const int index);
 	void clear();
 	T& operator[](const int index);
+    Iterator begin() {return Iterator(head);}
+    Iterator end() {return nullptr;}
 };
 
 template<typename T>
-inline int List<T>::get_size()
+inline int List<T>::getSize()
 {
 	return size;
 }
 
 template<typename T>
-inline void List<T>::push_back()
+inline void List<T>::pushBack()
 {
-	if (head == nullptr)
+
+    if (head == nullptr)
 		head = new Node<T>;
 	else
 	{
@@ -55,7 +50,7 @@ inline void List<T>::push_back()
 }
 
 template<typename T>
-inline void List<T>::pop_front()
+inline void List<T>::popFront()
 {
 	Node<T>* to_delete = this->head;
 	head = head->next;
@@ -64,11 +59,11 @@ inline void List<T>::pop_front()
 }
 
 template<typename T>
-inline void List<T>::remove_object(const int index)
+inline void List<T>::removeObject(const int index)
 {
 	if (index == 0)
 	{
-		pop_front();
+        popFront();
 	}
 	else
 	{
@@ -89,7 +84,7 @@ inline void List<T>::clear()
 {
 	while (size != 0)
 	{
-		pop_front();
+        popFront();
 	}
 }
 

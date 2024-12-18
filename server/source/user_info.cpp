@@ -1,41 +1,41 @@
 #include "user_info.h"
 
-void UserInfo::set_fname(const std::string_view value)
+void UserInfo::setFname(const std::string_view value)
 {
-	this->first_name = value;
+	this->firstName = value;
 }
 
-void UserInfo::set_sname(const std::string_view value)
+void UserInfo::setSname(const std::string_view value)
 {
-	this->second_name = value;
+	this->secondName = value;
 }
 
-void UserInfo::set_lname(const std::string_view value)
+void UserInfo::setLname(const std::string_view value)
 {
-	this->last_name = value;
+	this->lastName = value;
 }
 
-void UserInfo::set_email(const std::string_view value)
+void UserInfo::setEmail(const std::string_view value)
 {
 	this->email = value;
 }
 
-void UserInfo::set_phone_number(const std::string_view value)
+void UserInfo::setPhoneNumber(const std::string_view value)
 {
-	this->phone_number = value;
+	this->phoneNumber = value;
 }
 
-void UserInfo::set_user_password(const std::string_view value)
+void UserInfo::setUserPassword(const std::string_view value)
 {
-	this->user_password = value;
+	this->userPassword = value;
 }
 
-void UserInfo::set_role(const std::string_view value)
+void UserInfo::setRole(const std::string_view value)
 {
 	this->role = value;
 }
 
-std::string UserInfo::get_role()
+std::string UserInfo::getRole()
 {
 	return this->role;
 }

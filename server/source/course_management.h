@@ -1,11 +1,13 @@
 #include "database.h"
+#include "course.h"
 
 class ICourse: public Database
 {
 public:
-	virtual void create_course() = 0;
-	virtual void output_course_info() = 0;
-	virtual void update_course_info() = 0;
-	virtual void delete_course() = 0;
-	virtual void get_course_info() = 0;
+    virtual void createCourse(std::string *values) = 0;
+    virtual void outputCourseInfo() = 0;
+    virtual void updateCourseInfo() = 0;
+    virtual void deleteCourse() = 0;
+    virtual void getCourseInfo() = 0;
+    virtual void getLecturesInfo(Course& course) = 0;
 };

@@ -25,7 +25,7 @@ void AuthorizationMenu::registration(std::string* values)
         }
     }
 
-    postgres.insert_data("users", temp_fnames, temp_values);
+    postgres.insertData("users", temp_fnames, temp_values);
 
     std::cout << "Registration was successful!" << std::endl << "Press enter to continue ";
     getchar();
@@ -38,15 +38,15 @@ void AuthorizationMenu::login(UserInfo& current_user, std::string *ptr_values)
 
     std::string temp[] = { "*" };
     std::string user_data[8];
-    postgres.select_from_postgres("users WHERE email = '" + ptr_values[0] + "'", temp, user_data, 1);
-    current_user.set_id(std::stoi(user_data[0]));
-    current_user.set_fname(user_data[1]);
-    current_user.set_sname(user_data[2]);
-    current_user.set_lname(user_data[3]);
-    current_user.set_email(user_data[4]);
-    current_user.set_phone_number(user_data[5]);
-    current_user.set_user_password(user_data[6]);
-    current_user.set_role(user_data[7]);
+    postgres.selectFromPostgres("users WHERE email = '" + ptr_values[0] + "'", temp, user_data, 1);
+    current_user.setId(std::stoi(user_data[0]));
+    current_user.setFname(user_data[1]);
+    current_user.setSname(user_data[2]);
+    current_user.setLname(user_data[3]);
+    current_user.setEmail(user_data[4]);
+    current_user.setPhoneNumber(user_data[5]);
+    current_user.setUserPassword(user_data[6]);
+    current_user.setRole(user_data[7]);
 }
 
 int AuthorizationMenu::validation(const std::string* values, const int length) const
@@ -71,7 +71,7 @@ int AuthorizationMenu::validation(const std::string* values, const int length) c
             temp_fnames += field_names[i];
     }
 
-    std::string sql = "SELECT " + temp_fnames + " FROM " + this->table_name + ";";
+    std::string sql = "SELECT " + temp_fnames + " FROM " + this->tableName + ";";
 
     PGresult* res = PQexec(conn, sql.c_str());
 
@@ -97,7 +97,7 @@ int AuthorizationMenu::validation(const std::string* values, const int length) c
     return 0;
 }
 
-void  AuthorizationMenu::output_menu()
+void  AuthorizationMenu::outputMenu()
 {
     system("cls");
     std::cout << "Welcome to the learning management system\n";
@@ -107,7 +107,7 @@ void  AuthorizationMenu::output_menu()
     std::cout << "3. Exit\n";
 }
 
-void AuthorizationMenu::choose_option()
+void AuthorizationMenu::chooseOption()
 {
-    return IMenu::choose_option();
+    return IMenu::chooseOption();
 }

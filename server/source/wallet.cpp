@@ -1,11 +1,11 @@
 #include "wallet.h"
 
-void Wallet::set_balance(float value)
+void Wallet::setBalance(float value)
 {
 	this->balance = value;
 }
 
-float Wallet::get_balance() const
+float Wallet::getBalance() const
 {
 	return this->balance;
 }

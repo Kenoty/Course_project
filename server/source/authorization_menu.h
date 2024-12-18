@@ -4,11 +4,11 @@
 
 class AuthorizationMenu: public IMenu, public Database
 {
-	const std::string table_name = "users";
+    const std::string tableName = "users";
 public:
     static void registration(std::string*);
-    void login(UserInfo&, std::string *ptr_values);
+    void login(UserInfo&, std::string *ptrValues);
     int validation(const std::string* values, const int length) const;
-	void output_menu();
-	void choose_option();
+    void outputMenu();
+    void chooseOption();
 };

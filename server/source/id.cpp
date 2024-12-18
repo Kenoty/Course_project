@@ -1,11 +1,11 @@
 #include "id.h"
 
-void Id::set_id(int value)
+void Id::setId(int value)
 {
 	this->id = value;
 }
 
-int Id::get_id() const
+int Id::getId() const
 {
 	return this->id;
 }

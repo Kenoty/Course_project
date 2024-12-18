@@ -1,33 +1,37 @@
 #include "mentor.h"
+#include "filters.h"
+#include "jsonfilehandler.h"
 #include <format>
 
-void Mentor::create_course()
+
+void Mentor::createCourse(std::string *values)
 {
     const std::string field_names = {"name, price, user_id"};
-    std::string values[] = {"course name", "course price", std::to_string(get_id())};
 
-    for (int i = 0; i < size(values) - 1; i++)
-        get_info(values[i]);
+    float tempPrice = std::stof(values[1]);
+    int tempIntPrice = static_cast<int>(tempPrice * 100);
+    values[1] = std::to_string(tempIntPrice);
+
     std::string temp = "'" + values[0] + "', '" + values[1] + "', " + values[2];
-    insert_data("courses", field_names, temp);
+    insertData("courses", field_names, temp);
 }
 
-void Mentor::output_course_info()
+void Mentor::outputCourseInfo()
 {
-    for (int i = 0; i < this->courses.get_size(); i++)
+    for (int i = 0; i < this->courses.getSize(); i++)
     {
         std::cout << "Course number " << i + 1 << '\n';
         std::cout << this->courses[i];
     }
 }
 
-void Mentor::update_course_info()
+void Mentor::updateCourseInfo()
 {
     int order;
     int token;
     std::cout << "\vWhat course you want to update:\n";
-    for (int i = 0; i < this->courses.get_size(); i++)
-        this->courses[i].read_only_names(i + 1);
+    for (int i = 0; i < this->courses.getSize(); i++)
+        this->courses[i].readOnlyNames(i + 1);
     std::cin >> order;
     order--;
     std::cout << "What you want to update:\n";
@@ -42,111 +46,130 @@ void Mentor::update_course_info()
         std::string temp;
         rewind(stdin);
         getline(std::cin, temp);
-        this->courses[order].set_name(temp);
-        update_field("courses", field_names[0], "'" + this->courses[order].get_name() + "'", std::to_string(this->courses[order].get_id()));
+        this->courses[order].setName(temp);
+        updateField("courses", field_names[0], "'" + this->courses[order].getName() + "'", std::to_string(this->courses[order].getId()));
     }
     else
     {
         std::cout << "Enter new price: ";
         float temp;
         std::cin >> temp;
-        this->courses[order].set_price(temp);
-        update_field("courses", field_names[1], std::to_string(this->courses[order].get_price() * 100), std::to_string(this->courses[order].get_id()));
+        this->courses[order].setPrice(temp);
+        updateField("courses", field_names[1], std::to_string(this->courses[order].getPrice() * 100), std::to_string(this->courses[order].getId()));
     }
 }
 
-void Mentor::delete_course()
+void Mentor::deleteCourse()
 {
     int order;
-    if (this->courses.get_size() != 0)
+    if (this->courses.getSize() != 0)
     {
         std::cout << "\vWhat course you want to delete:\n";
-        for (int i = 0; i < this->courses.get_size(); i++)
-            this->courses[i].read_only_names(i + 1);
+        for (int i = 0; i < this->courses.getSize(); i++)
+            this->courses[i].readOnlyNames(i + 1);
         std::cin >> order;
         order--;
-        delete_data("courses", std::to_string(this->courses[order].get_id()));
-        this->courses.remove_object(order);
+        deleteData("courses", std::to_string(this->courses[order].getId()));
+        this->courses.removeObject(order);
     }
     else
         std::cout << "Courses are already do not exist\n";
 }
 
-void Mentor::get_course_info()
+void Mentor::getCourseInfo()
 {
     const std::string field_names[] = {"name", "price", "rating", "number_of_votes", "id"};
 
-    const int nrows = get_nrows(std::format("courses WHERE user_id = {}", get_id()), field_names, std::size(field_names));
-    const int nfields = get_nfields(std::format("courses WHERE user_id = {}", get_id()), field_names, std::size(field_names));
+    const int nrows = getNrows(std::format("courses WHERE user_id = {}", getId()), field_names, std::size(field_names));
+    const int nfields = getNfields(std::format("courses WHERE user_id = {}", getId()), field_names, std::size(field_names));
 
     std::string* temp = new std::string[nrows * nfields];
 
-    temp = select_from_postgres(std::format("courses WHERE user_id = {}", get_id()), field_names, temp, std::size(field_names));
+    temp = selectFromPostgres(std::format("courses WHERE user_id = {}", getId()), field_names, temp, std::size(field_names));
 
-    if (this->courses.get_size() != 0)
+    if (this->courses.getSize() != 0)
         this->courses.clear();
-    int count = 0;
+
     for (int i = 0; i < nrows; i++)
     {
-        this->courses.push_back();
-        this->courses[i].set_name(temp[count++]);
-        this->courses[i].set_price(std::stof(temp[count++]) / 100);
-        this->courses[i].set_rating(std::stof(temp[count++]) / 100);
-        this->courses[i].set_number_of_votes(std::stoi(temp[count++]));
-        this->courses[i].set_id(std::stoi(temp[count++]));
+        this->courses.pushBack();
+    }
+
+    int count = 0;
+    List<Course>::Iterator iterator = courses.begin();
+    while(iterator != courses.end())
+    {
+        (*iterator).setName(temp[count++]);
+        (*iterator).setPrice(std::stof(temp[count++]) / 100);
+        (*iterator).setRating(std::stof(temp[count++]) / 100);
+        (*iterator).setNumberOfVotes(std::stoi(temp[count++]));
+        (*iterator).setId(std::stoi(temp[count++]));
+        getLecturesInfo(*iterator);
+        ++iterator;
     }
 
     delete[] temp;
 }
 
-void Mentor::output_menu()
+void Mentor::getLecturesInfo(Course &course)
 {
-    system("cls");
-    std::cout << "Select the action you want to do and print the number\n";
-    std::cout << "1. Create the product\n";
-    std::cout << "2. Output information about the product\n";
-    std::cout << "3. Update information about the product\n";
-    std::cout << "4. Delete the product\n";
-    std::cout << "5. Exit the program\n";
+    std::string fieldNames[3] = {"id", "lecture_name", "text"};
+
+    const int nrows = getNrows(std::format("lectures WHERE course_id = {}", course.getId()), fieldNames, std::size(fieldNames));
+    const int nfields = getNfields(std::format("lectures WHERE course_id = {}", course.getId()), fieldNames, std::size(fieldNames));
+
+    std::string* temp = new std::string[nrows * nfields];
+
+    temp = selectFromPostgres(std::format("lectures WHERE course_id = {}", course.getId()), fieldNames, temp, std::size(fieldNames));
+
+    if (course.getLecturesList().getSize() != 0)
+        course.getLecturesList().clear();
+    for (int i = 0; i < nrows; i++)
+    {
+        course.getLecturesList().pushBack();
+    }
+
+    int count = 0;
+    List<Lecture>::Iterator iterator = course.getLecturesList().begin();
+    while(iterator != course.getLecturesList().end())
+    {
+        (*iterator).setId(std::stoi(temp[count++]));
+        (*iterator).setLectureName(temp[count++]);
+        (*iterator).setMaterial(temp[count++]);
+        ++iterator;
+    }
+
+    delete[] temp;
 }
 
-void Mentor::choose_option()
+List<Course>& Mentor::getCoursesList()
 {
-    int action = 0;
+    return courses;
+}
 
-    while (action != 5)
-    {
-        switch (action)
-        {
-        case 0:
-            output_menu();
-            std::cin >> action;
-            break;
-        case 1:
-            create_course();
-            routine();
-            action = 0;
-            break;
-        case 2:
-            get_course_info();
-            output_course_info();
-            routine();
-            action = 0;
-            break;
-        case 3:
-            update_course_info();
-            routine();
-            action = 0;
-            break;
-        case 4:
-            delete_course();
-            routine();
-            action = 0;
-            break;
-        default:
-            std::cout << "Input error, try again: ";
-            std::cin >> action;
-            break;
-        }
-    }
+std::string *Mentor::getStudents(std::string *filters)
+{
+    Filters filter;
+
+    filter.setFname(filters[0]);
+    filter.setSname(filters[1]);
+    filter.setLname(filters[2]);
+    filter.setEmail(filters[3]);
+    filter.setPhone(filters[4]);
+
+    std::string query = " users WHERE role = 'STUDENT'" + filter.createFiltersKit();
+
+    const std::string fieldNames[5] = {"first_name", "second_name", "last_name", "email", "phone_number"};
+    const int nrows = getNrows(query, fieldNames, std::size(fieldNames));
+    const int nfields = getNfields(query, fieldNames, std::size(fieldNames));
+
+    std::string *result = new std::string[nrows * nfields];
+
+    selectFromPostgres(query, fieldNames, result, std::size(fieldNames));
+
+    JsonFileHandler handler;
+
+    handler.writeJson("StudentsReport", result, nrows);
+
+    return result;
 }

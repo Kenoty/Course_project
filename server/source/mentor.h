@@ -1,24 +1,27 @@
+#pragma once
+
 #include "user_info.h"
 #include "course.h"
 #include "course_management.h"
 #include "list.h"
-#include "menu_interface.h"
 
-class Mentor: public UserInfo, public IMenu, public ICourse
+class Mentor: public UserInfo, public ICourse
 {
 	float rating;
-	int number_of_votes;
+    int numberOfVotes;
 	List<Course> courses;
 public:
-    Mentor(const UserInfo& current_user = UserInfo(), float rating = 0, int num = 0): UserInfo(current_user), rating(rating), number_of_votes(num), courses(List<Course>())
+    Mentor(const UserInfo& currentUser = UserInfo(), float rating = 0, int num = 0): UserInfo(currentUser), rating(rating), numberOfVotes(num), courses(List<Course>())
 	{
-		get_course_info();
+		getCourseInfo();
 	}
-	void create_course();
-	void output_course_info();
-	void update_course_info();
-	void delete_course();
-	void get_course_info();
-	void output_menu();
-	void choose_option();
+    void createCourse(std::string *values);
+	void outputCourseInfo();
+	void updateCourseInfo();
+	void deleteCourse();
+	void getCourseInfo();
+    void getLecturesInfo(Course& course);
+    List<Course>& getCoursesList();
+    std::string *getStudents(std::string*);
+
 };

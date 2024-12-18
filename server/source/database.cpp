@@ -1,7 +1,7 @@
 #include "database.h"
 #include <string>
 
-int Database::get_nrows(const std::string& table_name, const std::string* field_names, const int length) const
+int Database::getNrows(const std::string& tableName, const std::string* fieldNames, const int length) const
 {
     PGconn* conn = PQconnectdb(this->conninfo.c_str());
 
@@ -18,12 +18,12 @@ int Database::get_nrows(const std::string& table_name, const std::string* field_
     for (int i = 0; i < length; i++)
     {
         if (i != length - 1)
-            temp_fnames = temp_fnames + field_names[i] + ", ";
+            temp_fnames = temp_fnames + fieldNames[i] + ", ";
         else
-            temp_fnames += field_names[i];
+            temp_fnames += fieldNames[i];
     }
 
-    std::string sql = "SELECT " + temp_fnames + " FROM " + table_name + ";";
+    std::string sql = "SELECT " + temp_fnames + " FROM " + tableName + ";";
 
     PGresult* res = PQexec(conn, sql.c_str());
 
@@ -41,7 +41,7 @@ int Database::get_nrows(const std::string& table_name, const std::string* field_
     return nrows;
 }
 
-int Database::get_nfields(const std::string& table_name, const std::string* field_names, const int length) const
+int Database::getNfields(const std::string& table_name, const std::string* field_names, const int length) const
 {
     PGconn* conn = PQconnectdb(this->conninfo.c_str());
 
@@ -81,7 +81,7 @@ int Database::get_nfields(const std::string& table_name, const std::string* fiel
     return nfields;
 }
 
-void Database::insert_data(const std::string& table_name, const std::string& field_names, const std::string& values) const
+void Database::insertData(const std::string& table_name, const std::string& field_names, const std::string& values) const
 {
     PGconn* conn = PQconnectdb(this->conninfo.c_str());
 
@@ -105,7 +105,7 @@ void Database::insert_data(const std::string& table_name, const std::string& fie
     PQfinish(conn);
 }
 
-void Database::update_field(const std::string& table_name, const std::string& field_name, const std::string& value, const std::string& id) const
+void Database::updateField(const std::string& table_name, const std::string& field_name, const std::string& value, const std::string& id) const
 {
     PGconn* conn = PQconnectdb(this->conninfo.c_str());
 
@@ -129,7 +129,7 @@ void Database::update_field(const std::string& table_name, const std::string& fi
     PQfinish(conn);
 }
 
-void Database::delete_data(const std::string& table_name, const std::string& id) const
+void Database::deleteData(const std::string& table_name, const std::string& id) const
 {
     PGconn* conn = PQconnectdb(this->conninfo.c_str());
 
@@ -153,7 +153,7 @@ void Database::delete_data(const std::string& table_name, const std::string& id)
     PQfinish(conn);
 }
 
-std::string* Database::select_from_postgres(const std::string& table_name, const std::string* field_names, std::string* values, const int length)
+std::string* Database::selectFromPostgres(const std::string& table_name, const std::string* field_names, std::string* values, const int length)
 {
     PGconn* conn = PQconnectdb(this->conninfo.c_str());
 
@@ -189,6 +189,7 @@ std::string* Database::select_from_postgres(const std::string& table_name, const
 
     int nrows = PQntuples(res);
     int nfields = PQnfields(res);
+
     int count = 0;
     for (int i = 0; i < nrows; i++)
     {
@@ -201,7 +202,7 @@ std::string* Database::select_from_postgres(const std::string& table_name, const
     return values;
 }
 
-void Database::get_info(std::string& field)
+void Database::getInfo(std::string& field)
 {
     std::cout << "Enter your " + field + ": ";
     rewind(stdin);
