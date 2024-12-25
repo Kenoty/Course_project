@@ -12,9 +12,12 @@
 #include <QSpacerItem>
 
 #include "mentor.h"
+#pragma once
+
 #include "clickablelabel.h"
 #include "mylineedit.h"
 #include "animatedbutton.h"
+#include "student.h"
 
 class AuthorizationWindow : public QMainWindow
 {
@@ -24,26 +27,25 @@ public:
     AuthorizationWindow(QWidget *parent = nullptr);
     ~AuthorizationWindow();
 
-protected:
-
-signals:
-
 private slots:
-    void on_authorization_button_clicked();
-    void update_authorization_button_state();
-    void replace_with_mentor_window();
-    void replace_with_registration_window();
+    void onAuthorizationButtonClicked();
+    void updateAuthorizationButtonState();
+    void replaceWithMentorWindow();
+    void replaceWithRegistrationWindow();
+    void replaceWithStudentWindow();
+
 private:
-    QWidget *central_widget;
-    QGroupBox *authorization_box;
-    AnimatedButton *authorization_button;
-    QLabel *email_label, *password_label;
-    ClickableLabel *registration_label;
-    MyLineEdit *email_line, *password_line;
-    QVBoxLayout *vertical_layout, *window_layout, *registerLabelLayout;
-    QHBoxLayout *email_horizontal_layout, *password_horizontal_layout;
+    QWidget *centralWidget;
+    QGroupBox *authorizationBox;
+    AnimatedButton *authorizationButton;
+    QLabel *emailLabel, *passwordLabel;
+    ClickableLabel *registrationLabel;
+    MyLineEdit *emailLine, *passwordLine;
+    QVBoxLayout *verticalLayout, *windowLayout, *registerLabelLayout;
+    QHBoxLayout *emailHorizontalLayout, *passwordHorizontalLayout;
     Mentor *mentor;
+    Student *student;
     QSpacerItem *betweenEmail, *betweenPassword, *beforeButton, *beforeRegLabel, *beforePassword;
 };
 
-#endif // AUTHORIZATIONWINDOW_H
+#endif

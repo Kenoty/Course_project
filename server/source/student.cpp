@@ -1,6 +1,5 @@
 #include "student.h"
-#include "course.h"
-#include "list.h"
+#include <format>
 
 //void Student::rate_course()
 //{
@@ -20,7 +19,10 @@
 //    routine();
 //}
 
-void Student::find_course()
+std::vector<std::string> Student::findCourses(std::string_view text)
 {
-	//std::string values[];
+    std::string fieldNames[] = {"name", "id"};
+    std::vector<std::string> vector = selectFromPostgre(std::format("courses WHERE name ILIKE '{}%'", text), fieldNames, std::size(fieldNames));
+
+    return vector;
 }

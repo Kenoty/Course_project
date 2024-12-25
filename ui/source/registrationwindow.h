@@ -12,8 +12,8 @@
 #include <QPainter>
 #include <QComboBox>
 
-#include "mylineedit.h"
 #include "animatedbutton.h"
+#include "authorizationwindow.h"
 
 class RegistrationWindow : public QMainWindow
 {
@@ -27,6 +27,7 @@ signals:
 private slots:
     void onRegistrationButtonClicked();
     void updateRegistrationButtonState();
+    void goBackToAuthorizationWindow();
 
 private:
     QWidget *centralWidget;
@@ -37,6 +38,9 @@ private:
     QVBoxLayout *registrationBoxLayout, *centralLayout;
     QHBoxLayout **linesHorizontalLayout;
     QComboBox *roleField;
+    QPushButton *returnButton;
+
+    AuthorizationWindow *parentWindow;
 };
 
-#endif // REGISTRATIONWINDOW_H
+#endif

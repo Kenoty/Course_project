@@ -5,9 +5,9 @@
 
 #include "regerrhandler.h"
 
-RegErrHandler::RegErrHandler() {}
+RegErrHandler::RegErrHandler(): RegErrException() {}
 
-RegErrHandler::RegErrHandler(std::string message): message(message) {}
+RegErrHandler::RegErrHandler(std::string message): RegErrException(message) {}
 
 void RegErrHandler::checkLine(QLineEdit* line, const char* expression)
 {
@@ -23,7 +23,7 @@ void RegErrHandler::checkLine(QLineEdit* line, const char* expression)
     else
     {
         delete validator;
-        throw RegErrHandler("Invalid input");
+        throw RegErrException("Invalid input");
     }
 }
 
@@ -34,7 +34,7 @@ bool RegErrHandler::handleException(QLineEdit* line, const char* expression)
         checkLine(line, expression);
         return true;
     }
-    catch (const RegErrHandler& exception)
+    catch (const RegErrException& exception)
     {
         std::cout << exception.getMessage() << std::endl;
         QString warningMessage;
@@ -49,33 +49,13 @@ bool RegErrHandler::handleException(QLineEdit* line, const char* expression)
         }
         else
         {
-            warningMessage = "Проверьте введенное поле. Dозможно оно не содержить символа @: " + line->text();
+            warningMessage = "Проверьте введенное поле. Возможно оно не содержит символа @: " + line->text();
         }
 
-        QMessageBox::warning(line, "Ошибка формата ввода", warningMessage);
+        QMessageBox::warning(nullptr, "Ошибка формата ввода", warningMessage);
         line->clear();
         line->setFocus();
 
         return false;
     }
-}
-
-const char* RegErrHandler::getEmailExp()
-{
-    return this->emailRegExp;
-}
-
-const char* RegErrHandler::getPhoneNumExp()
-{
-    return this->phoneNumRegExp;
-}
-
-const char* RegErrHandler::getNameExp()
-{
-    return this->nameRegExp;
-}
-
-std::string RegErrHandler::getMessage() const
-{
-    return this->message;
 }

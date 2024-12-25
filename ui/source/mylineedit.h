@@ -25,4 +25,4 @@ private:
     QPropertyAnimation *offsetAnimation;
 };
 
-#endif // MYLINEEDIT_H
+#endif

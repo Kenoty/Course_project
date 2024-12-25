@@ -9,7 +9,7 @@ class ClickableLabel: public QLabel
 {
     Q_OBJECT
 public:
-    ClickableLabel(const QString &text, QWidget *parent = nullptr);
+    ClickableLabel(const QString &text = "", QWidget *parent = nullptr);
 
 protected:
     void mousePressEvent(QMouseEvent *event) override;
@@ -20,4 +20,4 @@ signals:
     void clicked();
 };
 
-#endif // CLICKABLELABEL_H
+#endif

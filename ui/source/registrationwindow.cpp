@@ -32,7 +32,6 @@ RegistrationWindow::RegistrationWindow(QWidget *parent)
     for(int i = 0; i < 7; i++)
     {
         arrayLabel[i] = new QLabel();
-        //arrayLabel[i]->setStyleSheet(helper->getLabelsStyle());
     }
 
     arrayLabel[0]->setText("Имя");
@@ -42,8 +41,6 @@ RegistrationWindow::RegistrationWindow(QWidget *parent)
     arrayLabel[4]->setText("Почта");
     arrayLabel[5]->setText("Пароль");
     arrayLabel[6]->setText("Роль");
-
-    for(int i = 0; i < 7; i++)
 
     arrayLine = new QLineEdit*[6];
     for(int i = 0; i < 6; i++)
@@ -69,7 +66,10 @@ RegistrationWindow::RegistrationWindow(QWidget *parent)
         registrationBoxLayout->addLayout(linesHorizontalLayout[i]);
 
     registrationButton = new AnimatedButton("Зарегистрироваться");
+    registrationButton->setEnabled(false);
     registrationBoxLayout->addWidget(registrationButton);
+
+    connect(registrationButton, &QPushButton::clicked, this, &RegistrationWindow::onRegistrationButtonClicked);
 
     for(int i = 0; i < 6; i++)
         if(i != 2)
@@ -77,7 +77,11 @@ RegistrationWindow::RegistrationWindow(QWidget *parent)
             connect(arrayLine[i], &QLineEdit::textChanged, this, &RegistrationWindow::updateRegistrationButtonState);
         }
 
-    connect(registrationButton, &QPushButton::clicked, this, &RegistrationWindow::onRegistrationButtonClicked);
+    returnButton = new QPushButton();
+    returnButton->setStyleSheet("");
+    centralLayout->addWidget(returnButton);
+
+    connect(returnButton, &QPushButton::clicked, this, &RegistrationWindow::goBackToAuthorizationWindow);
 }
 
 RegistrationWindow::~RegistrationWindow()
@@ -118,4 +122,12 @@ void RegistrationWindow::updateRegistrationButtonState()
         registrationButton->setEnabled(true);
     else
         registrationButton->setEnabled(false);
+}
+
+void RegistrationWindow::goBackToAuthorizationWindow()
+{
+    AuthorizationWindow *auth = new AuthorizationWindow();
+
+    auth->show();
+    this->close();
 }

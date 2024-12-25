@@ -52,9 +52,9 @@ inline void List<T>::pushBack()
 template<typename T>
 inline void List<T>::popFront()
 {
-	Node<T>* to_delete = this->head;
+    Node<T>* toDelete = this->head;
 	head = head->next;
-	delete to_delete;
+    delete toDelete;
 	size--;
 }
 
@@ -72,9 +72,9 @@ inline void List<T>::removeObject(const int index)
 		for (int i = 0; i < index - 1; i++)
 			previous = previous->next;
 
-		Node<T>* to_delete = previous->next;
-		previous->next = to_delete->next;
-		delete to_delete;
+        Node<T>* toDelete = previous->next;
+        previous->next = toDelete->next;
+        delete toDelete;
 		size--;
 	}
 }

@@ -13,4 +13,4 @@ public:
     virtual QString getLabelsStyle();
 };
 
-#endif // STYLEHELPER_H
+#endif

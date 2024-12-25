@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <libpq-fe.h>
+#include <vector>
 
 class Database
 {
@@ -14,5 +15,6 @@ public:
     void updateField(const std::string& tableName, const std::string& fieldName, const std::string& value, const std::string& id) const;
     void deleteData(const std::string& tableName, const std::string& id) const;
     std::string* selectFromPostgres(const std::string& tableName, const std::string* fieldNames, std::string* values, const int length);
+    std::vector<std::string> selectFromPostgre(const std::string& tableName, const std::string* fieldNames, const int length);
     void getInfo(std::string&);
 };

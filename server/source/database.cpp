@@ -12,18 +12,16 @@ int Database::getNrows(const std::string& tableName, const std::string* fieldNam
         return 0;
     }
 
-    std::cout << "Connection to the database succesfully! " << std::endl;
-
-    std::string temp_fnames = "";
+    std::string tempFnames = "";
     for (int i = 0; i < length; i++)
     {
         if (i != length - 1)
-            temp_fnames = temp_fnames + fieldNames[i] + ", ";
+            tempFnames = tempFnames + fieldNames[i] + ", ";
         else
-            temp_fnames += fieldNames[i];
+            tempFnames += fieldNames[i];
     }
 
-    std::string sql = "SELECT " + temp_fnames + " FROM " + tableName + ";";
+    std::string sql = "SELECT " + tempFnames + " FROM " + tableName + ";";
 
     PGresult* res = PQexec(conn, sql.c_str());
 
@@ -41,7 +39,7 @@ int Database::getNrows(const std::string& tableName, const std::string* fieldNam
     return nrows;
 }
 
-int Database::getNfields(const std::string& table_name, const std::string* field_names, const int length) const
+int Database::getNfields(const std::string& tableName, const std::string* fieldNames, const int length) const
 {
     PGconn* conn = PQconnectdb(this->conninfo.c_str());
 
@@ -52,18 +50,16 @@ int Database::getNfields(const std::string& table_name, const std::string* field
         return 0;
     }
 
-    std::cout << "Connection to the database succesfully! " << std::endl;
-
-    std::string temp_fnames = "";
+    std::string tempFnames = "";
     for (int i = 0; i < length; i++)
     {
         if (i != length - 1)
-            temp_fnames = temp_fnames + field_names[i] + ", ";
+            tempFnames = tempFnames + fieldNames[i] + ", ";
         else
-            temp_fnames += field_names[i];
+            tempFnames += fieldNames[i];
     }
 
-    std::string sql = "SELECT " + temp_fnames + " FROM " + table_name + ";";
+    std::string sql = "SELECT " + tempFnames + " FROM " + tableName + ";";
 
     PGresult* res = PQexec(conn, sql.c_str());
 
@@ -81,7 +77,7 @@ int Database::getNfields(const std::string& table_name, const std::string* field
     return nfields;
 }
 
-void Database::insertData(const std::string& table_name, const std::string& field_names, const std::string& values) const
+void Database::insertData(const std::string& tableName, const std::string& fieldNames, const std::string& values) const
 {
     PGconn* conn = PQconnectdb(this->conninfo.c_str());
 
@@ -92,7 +88,7 @@ void Database::insertData(const std::string& table_name, const std::string& fiel
         return;
     }
 
-    std::string sql = "INSERT INTO " + table_name + " (" + field_names + ") VALUES (" + values + ");";
+    std::string sql = "INSERT INTO " + tableName + " (" + fieldNames + ") VALUES (" + values + ");";
 
     PGresult* res = PQexec(conn, sql.c_str());
 
@@ -105,7 +101,7 @@ void Database::insertData(const std::string& table_name, const std::string& fiel
     PQfinish(conn);
 }
 
-void Database::updateField(const std::string& table_name, const std::string& field_name, const std::string& value, const std::string& id) const
+void Database::updateField(const std::string& tableName, const std::string& field_name, const std::string& value, const std::string& id) const
 {
     PGconn* conn = PQconnectdb(this->conninfo.c_str());
 
@@ -116,7 +112,7 @@ void Database::updateField(const std::string& table_name, const std::string& fie
         return;
     }
 
-    std::string sql = "UPDATE " + table_name + " SET " + field_name + " = " + value + " WHERE id = " + id + ";";
+    std::string sql = "UPDATE " + tableName + " SET " + field_name + " = " + value + " WHERE id = " + id + ";";
 
     PGresult* res = PQexec(conn, sql.c_str());
 
@@ -129,7 +125,7 @@ void Database::updateField(const std::string& table_name, const std::string& fie
     PQfinish(conn);
 }
 
-void Database::deleteData(const std::string& table_name, const std::string& id) const
+void Database::deleteData(const std::string& tableName, const std::string& id) const
 {
     PGconn* conn = PQconnectdb(this->conninfo.c_str());
 
@@ -140,7 +136,7 @@ void Database::deleteData(const std::string& table_name, const std::string& id) 
         return;
     }
 
-    std::string sql = "DELETE FROM " + table_name + " WHERE id = " + id + ";";
+    std::string sql = "DELETE FROM " + tableName + " WHERE id = " + id + ";";
 
     PGresult* res = PQexec(conn, sql.c_str());
 
@@ -153,7 +149,7 @@ void Database::deleteData(const std::string& table_name, const std::string& id) 
     PQfinish(conn);
 }
 
-std::string* Database::selectFromPostgres(const std::string& table_name, const std::string* field_names, std::string* values, const int length)
+std::string* Database::selectFromPostgres(const std::string& tableName, const std::string* fieldNames, std::string* values, const int length)
 {
     PGconn* conn = PQconnectdb(this->conninfo.c_str());
 
@@ -164,18 +160,16 @@ std::string* Database::selectFromPostgres(const std::string& table_name, const s
         return nullptr;
     }
 
-    std::cout << "Connection to the database succesfully! " << std::endl;
-
-    std::string temp_fnames = "";
+    std::string tempFnames = "";
     for (int i = 0; i < length; i++)
     {
         if (i != length - 1)
-            temp_fnames = temp_fnames + field_names[i] + ", ";
+            tempFnames = tempFnames + fieldNames[i] + ", ";
         else
-            temp_fnames += field_names[i];
+            tempFnames += fieldNames[i];
     }
 
-    std::string sql = "SELECT " + temp_fnames + " FROM " + table_name + ";";
+    std::string sql = "SELECT " + tempFnames + " FROM " + tableName + ";";
 
     PGresult* res = PQexec(conn, sql.c_str());
 
@@ -200,6 +194,55 @@ std::string* Database::selectFromPostgres(const std::string& table_name, const s
     PQclear(res);
     PQfinish(conn);
     return values;
+}
+
+std::vector<std::string> Database::selectFromPostgre(const std::string &tableName, const std::string *fieldNames, const int length)
+{
+    PGconn* conn = PQconnectdb(this->conninfo.c_str());
+
+    if (PQstatus(conn) != CONNECTION_OK)
+    {
+        std::cerr << "Connection to database failed: " << PQerrorMessage(conn) << std::endl;
+        PQfinish(conn);
+        return std::vector<std::string>();
+    }
+
+    std::string tempFnames = "";
+    for (int i = 0; i < length; i++)
+    {
+        if (i != length - 1)
+            tempFnames = tempFnames + fieldNames[i] + ", ";
+        else
+            tempFnames += fieldNames[i];
+    }
+
+    std::string sql = "SELECT " + tempFnames + " FROM " + tableName + ";";
+
+    PGresult* res = PQexec(conn, sql.c_str());
+
+    if (PQresultStatus(res) != PGRES_TUPLES_OK)
+    {
+        std::cerr << "SELECT FAILED: " << PQerrorMessage(conn) << std::endl;
+        PQclear(res);
+        PQfinish(conn);
+        return std::vector<std::string>();
+    }
+
+    int nrows = PQntuples(res);
+    int nfields = PQnfields(res);
+
+    std::vector<std::string> vector;
+
+    int count = 0;
+    for (int i = 0; i < nrows; i++)
+    {
+        for (int j = 0; j < nfields; j++)
+            vector.push_back(PQgetvalue(res, i, j));
+    }
+
+    PQclear(res);
+    PQfinish(conn);
+    return vector;
 }
 
 void Database::getInfo(std::string& field)

@@ -27,4 +27,4 @@ private:
     QPropertyAnimation *shadowOpacityAnimation;
 };
 
-#endif // ANIMATEDBUTTON_H
+#endif

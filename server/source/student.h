@@ -1,17 +1,20 @@
-#include "user_info.h"
-#include "wallet.h"
-#include "database.h"
-#include "menu_interface.h"
+#pragma once
 
-class Student: public UserInfo, public Database, public IMenu
+#include "user_info.h"
+#include "database.h"
+
+#include <string>
+#include <vector>
+
+class Student: public UserInfo, public Database
 {
 public:
-	Student(): UserInfo(), Database(){}
-	void find_course();
-	void buy_course();
-	void rate_course();
-	void find_mentor();
-	void rate_mentor();
-	void get_access();
-	void top_up_wallet();
+    Student(const UserInfo& currentUser = UserInfo()): UserInfo(), Database(){}
+    std::vector<std::string> findCourses(std::string_view);
+    void buyCourse();
+    void rateCourse();
+    void findMentor();
+    void rateMentor();
+    void getAccess();
+    void topUpWallet();
 };

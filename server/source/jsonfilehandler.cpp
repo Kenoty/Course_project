@@ -1,8 +1,8 @@
 #include "jsonfilehandler.h"
 
-void JsonFileHandler::writeJson(const std::string &filename, std::string *values, const int &size)
+void JsonFileHandler::writeJson(const std::string &fileName, std::string *values, const int &size)
 {
-    std::ofstream outputFile(filename);
+    std::ofstream outputFile(fileName);
     if (outputFile.is_open())
     {
         int counter = 0;
@@ -20,6 +20,6 @@ void JsonFileHandler::writeJson(const std::string &filename, std::string *values
     }
     else
     {
-        std::cerr << "Failed to open file for writing: " << filename << std::endl;
+        std::cerr << "Failed to open file for writing: " << fileName << std::endl;
     }
 }

@@ -18,7 +18,7 @@ public:
     void createCourse(std::string *values);
 	void outputCourseInfo();
 	void updateCourseInfo();
-	void deleteCourse();
+    void deleteCourse(int id);
 	void getCourseInfo();
     void getLecturesInfo(Course& course);
     List<Course>& getCoursesList();

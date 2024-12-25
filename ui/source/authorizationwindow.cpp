@@ -1,12 +1,14 @@
 #include "authorizationwindow.h"
 #include "authorization_menu.h"
 #include "mentorwindow.h"
+#include "studentwindow.h"
 #include "registrationwindow.h"
 #include "stylehelper.h"
 
 #include <QStyleOption>
 #include <QPropertyAnimation>
 #include <QFocusEvent>
+#include <QMessageBox>
 
 AuthorizationWindow::AuthorizationWindow(QWidget *parent)
     : QMainWindow{parent}
@@ -15,88 +17,90 @@ AuthorizationWindow::AuthorizationWindow(QWidget *parent)
     StyleHelper *helper = &obj;
 
     mentor = nullptr;
+    student = nullptr;
 
-    central_widget = new QWidget(this);
-    setCentralWidget(central_widget);
+    centralWidget = new QWidget(this);
+    setCentralWidget(centralWidget);
 
-    central_widget->setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:1, y2:0, stop:0 rgba(138, 33, 182, 255), stop:1 rgba(47, 164, 188, 255))");
-    central_widget->setMinimumSize(800, 600);
+    centralWidget->setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:1, y2:0, stop:0 rgba(138, 33, 182, 255), stop:1 rgba(47, 164, 188, 255))");
+    centralWidget->setMinimumSize(800, 600);
 
-    window_layout = new QVBoxLayout(central_widget);
+    windowLayout = new QVBoxLayout(centralWidget);
 
-    authorization_box = new QGroupBox();
-    authorization_box->setFixedSize(320, 360);
-    authorization_box->setStyleSheet(helper->getLinesStyle() + helper->getBoxStyle() + helper->getLabelsStyle());
+    authorizationBox = new QGroupBox();
+    authorizationBox->setFixedSize(320, 360);
+    authorizationBox->setStyleSheet(helper->getLinesStyle() + helper->getBoxStyle() + helper->getLabelsStyle());
 
-    window_layout->addWidget(authorization_box);
-    window_layout->setAlignment(authorization_box, Qt::AlignCenter);
+    windowLayout->addWidget(authorizationBox);
+    windowLayout->setAlignment(authorizationBox, Qt::AlignCenter);
 
-    authorization_button = new AnimatedButton("Авторизоваться");
-    authorization_button->setStyleSheet(helper->getButtonsStyle());
-    authorization_button->setEnabled(false);
+    authorizationButton = new AnimatedButton("Авторизоваться");
+    authorizationButton->setStyleSheet(helper->getButtonsStyle());
+    authorizationButton->setEnabled(false);
 
-    connect(authorization_button, &QPushButton::clicked, this, &AuthorizationWindow::on_authorization_button_clicked);
-    connect(authorization_button, &QPushButton::clicked, this, &AuthorizationWindow::replace_with_mentor_window);
+    connect(authorizationButton, &QPushButton::clicked, this, &AuthorizationWindow::onAuthorizationButtonClicked);
 
-    vertical_layout = new QVBoxLayout(authorization_box);
+    verticalLayout = new QVBoxLayout(authorizationBox);
 
-    email_horizontal_layout = new QHBoxLayout();
-    password_horizontal_layout = new QHBoxLayout();
+    emailHorizontalLayout = new QHBoxLayout();
+    passwordHorizontalLayout = new QHBoxLayout();
 
-    vertical_layout->addLayout(email_horizontal_layout);
-    vertical_layout->addLayout(password_horizontal_layout);
-    vertical_layout->addWidget(authorization_button);
+    verticalLayout->addLayout(emailHorizontalLayout);
+    verticalLayout->addLayout(passwordHorizontalLayout);
+    verticalLayout->addWidget(authorizationButton);
 
-    email_label = new QLabel ("Эл. почта");
+    emailLabel = new QLabel ("Эл. почта");
 
-    password_label = new QLabel ("Пароль");
+    passwordLabel = new QLabel ("Пароль");
 
-    email_line = new MyLineEdit();
-    connect(email_line, &QLineEdit::textChanged, this, &AuthorizationWindow::update_authorization_button_state);
+    emailLine = new MyLineEdit();
+    connect(emailLine, &QLineEdit::textChanged, this, &AuthorizationWindow::updateAuthorizationButtonState);
 
-    password_line = new MyLineEdit();
-    connect(password_line, &QLineEdit::textChanged, this, &AuthorizationWindow::update_authorization_button_state);
+    passwordLine = new MyLineEdit();
+    connect(passwordLine, &QLineEdit::textChanged, this, &AuthorizationWindow::updateAuthorizationButtonState);
 
-    email_horizontal_layout->addWidget(email_label);
-    email_horizontal_layout->addWidget(email_line);
+    emailHorizontalLayout->addWidget(emailLabel);
+    emailHorizontalLayout->addWidget(emailLine);
 
-    password_horizontal_layout->addWidget(password_label);
-    password_horizontal_layout->addWidget(password_line);
+    passwordHorizontalLayout->addWidget(passwordLabel);
+    passwordHorizontalLayout->addWidget(passwordLine);
 
-    registration_label = new ClickableLabel("Регистрация");
-    registration_label->setFixedSize(74, 20);
-    connect(registration_label, &ClickableLabel::clicked, this, &AuthorizationWindow::replace_with_registration_window);
+    registrationLabel = new ClickableLabel("Регистрация");
+    registrationLabel->setFixedSize(74, 20);
+    connect(registrationLabel, &ClickableLabel::clicked, this, &AuthorizationWindow::replaceWithRegistrationWindow);
 
     registerLabelLayout = new QVBoxLayout();
-    registerLabelLayout->addWidget(registration_label, 0, Qt::AlignHCenter | Qt::AlignBottom);
+    registerLabelLayout->addWidget(registrationLabel, 0, Qt::AlignHCenter | Qt::AlignBottom);
 
-    vertical_layout->addLayout(registerLabelLayout);
+    verticalLayout->addLayout(registerLabelLayout);
 
     betweenEmail = new QSpacerItem(30, 20, QSizePolicy::Fixed, QSizePolicy::Fixed);
-    email_horizontal_layout->insertSpacerItem(1, betweenEmail);
+    emailHorizontalLayout->insertSpacerItem(1, betweenEmail);
     betweenPassword = new QSpacerItem(40, 20, QSizePolicy::Fixed, QSizePolicy::Fixed);
-    password_horizontal_layout->insertSpacerItem(1, betweenPassword);
+    passwordHorizontalLayout->insertSpacerItem(1, betweenPassword);
 
     beforePassword = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Fixed);
-    vertical_layout->insertSpacerItem(1, beforePassword);
+    verticalLayout->insertSpacerItem(1, beforePassword);
     beforeButton = new QSpacerItem(20, 120, QSizePolicy::Expanding, QSizePolicy::Fixed);
-    vertical_layout->insertSpacerItem(3, beforeButton);
+    verticalLayout->insertSpacerItem(3, beforeButton);
     beforeRegLabel = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Fixed);
-    vertical_layout->insertSpacerItem(5, beforeRegLabel);
+    verticalLayout->insertSpacerItem(5, beforeRegLabel);
 }
 
 AuthorizationWindow::~AuthorizationWindow()
 {
-    delete central_widget;
+    delete centralWidget;
 
     if (mentor != nullptr)
         delete mentor;
+    if(student != nullptr)
+        delete student;
 }
 
-void AuthorizationWindow::on_authorization_button_clicked()
+void AuthorizationWindow::onAuthorizationButtonClicked()
 {
-    QString login = email_line->text();
-    QString password = password_line->text();
+    QString login = emailLine->text();
+    QString password = passwordLine->text();
 
     std::string values[] = {login.toStdString(), password.toStdString()};
 
@@ -107,40 +111,51 @@ void AuthorizationWindow::on_authorization_button_clicked()
     {
         menu.login(guest, values);
     }
+    else
+    {
+        QMessageBox::information(this, "Информация", "Проверьте введенные данные. Возможно вы не зарегистрированы в системе.");
+    }
 
-    if(guest.get_role() == "MENTOR")
+    if(guest.getRole() == "MENTOR")
     {
         mentor = new Mentor(guest);
+        replaceWithMentorWindow();
     }
-}
-
-void AuthorizationWindow::update_authorization_button_state()
-{
-    if(!email_line->text().isEmpty() && !password_line->text().isEmpty())
-        authorization_button->setEnabled(true);
-    else
-        authorization_button->setEnabled(false);
-}
-
-void AuthorizationWindow::replace_with_mentor_window()
-{
-    if(mentor != nullptr)
+    else if(guest.getRole() == "STUDENT")
     {
-        MentorWindow *mentorWindow = new MentorWindow();
-
-        this->hide();
-        mentorWindow->show();
-
-        connect(mentorWindow, &QMainWindow::destroyed, this, &QMainWindow::close);
+        student = new Student(guest);
+        replaceWithStudentWindow();
     }
 }
 
-void AuthorizationWindow::replace_with_registration_window()
+void AuthorizationWindow::updateAuthorizationButtonState()
+{
+    if(!emailLine->text().isEmpty() && !passwordLine->text().isEmpty())
+        authorizationButton->setEnabled(true);
+    else
+        authorizationButton->setEnabled(false);
+}
+
+void AuthorizationWindow::replaceWithMentorWindow()
+{
+    MentorWindow *mentorWindow = new MentorWindow(mentor);
+
+    this->close();
+    mentorWindow->show();
+}
+
+void AuthorizationWindow::replaceWithRegistrationWindow()
 {
     RegistrationWindow *registrationWindow = new RegistrationWindow();
 
-    this->hide();
     registrationWindow->show();
+    this->close();
+}
 
-    connect(registrationWindow, &QMainWindow::destroyed, this, &QMainWindow::close);
+void AuthorizationWindow::replaceWithStudentWindow()
+{
+    StudentWindow *studentWindow = new StudentWindow(student);
+
+    this->close();
+    studentWindow->show();
 }

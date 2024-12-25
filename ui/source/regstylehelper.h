@@ -16,4 +16,4 @@ public:
     static QString getComboBoxStyle();
 };
 
-#endif // REGSTYLEHELPER_H
+#endif

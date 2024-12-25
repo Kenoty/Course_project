@@ -6,7 +6,7 @@ MyLineEdit::MyLineEdit(QWidget *parent) : QLineEdit(parent)
 {
     shadowEffect = new QGraphicsDropShadowEffect(this);
     shadowEffect->setOffset(3, 3);
-    shadowEffect->setBlurRadius(15);
+    shadowEffect->setBlurRadius(0);
     shadowEffect->setColor(QColor(57, 255, 203));
     setGraphicsEffect(shadowEffect);
 

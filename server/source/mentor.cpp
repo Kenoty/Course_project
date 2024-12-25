@@ -6,14 +6,14 @@
 
 void Mentor::createCourse(std::string *values)
 {
-    const std::string field_names = {"name, price, user_id"};
+    const std::string fieldNames = {"name, price, user_id"};
 
     float tempPrice = std::stof(values[1]);
     int tempIntPrice = static_cast<int>(tempPrice * 100);
     values[1] = std::to_string(tempIntPrice);
 
     std::string temp = "'" + values[0] + "', '" + values[1] + "', " + values[2];
-    insertData("courses", field_names, temp);
+    insertData("courses", fieldNames, temp);
 }
 
 void Mentor::outputCourseInfo()
@@ -39,7 +39,7 @@ void Mentor::updateCourseInfo()
     std::cout << "2. Price of the course:\n";
     std::cin >> token;
 
-    const std::string field_names[] = {"name", "price"};
+    const std::string fieldNames[] = {"name", "price"};
     if (token == 1)
     {
         std::cout << "Enter new name: ";
@@ -47,7 +47,7 @@ void Mentor::updateCourseInfo()
         rewind(stdin);
         getline(std::cin, temp);
         this->courses[order].setName(temp);
-        updateField("courses", field_names[0], "'" + this->courses[order].getName() + "'", std::to_string(this->courses[order].getId()));
+        updateField("courses", fieldNames[0], "'" + this->courses[order].getName() + "'", std::to_string(this->courses[order].getId()));
     }
     else
     {
@@ -55,37 +55,37 @@ void Mentor::updateCourseInfo()
         float temp;
         std::cin >> temp;
         this->courses[order].setPrice(temp);
-        updateField("courses", field_names[1], std::to_string(this->courses[order].getPrice() * 100), std::to_string(this->courses[order].getId()));
+        updateField("courses", fieldNames[1], std::to_string(this->courses[order].getPrice() * 100), std::to_string(this->courses[order].getId()));
     }
 }
 
-void Mentor::deleteCourse()
+void Mentor::deleteCourse(int id)
 {
-    int order;
-    if (this->courses.getSize() != 0)
-    {
-        std::cout << "\vWhat course you want to delete:\n";
-        for (int i = 0; i < this->courses.getSize(); i++)
-            this->courses[i].readOnlyNames(i + 1);
-        std::cin >> order;
-        order--;
-        deleteData("courses", std::to_string(this->courses[order].getId()));
-        this->courses.removeObject(order);
-    }
-    else
-        std::cout << "Courses are already do not exist\n";
+    deleteData("courses", std::to_string(id));
+    // int order;
+    // if (this->courses.getSize() != 0)
+    // {
+    //     std::cout << "\vWhat course you want to delete:\n";
+    //     for (int i = 0; i < this->courses.getSize(); i++)
+    //         this->courses[i].readOnlyNames(i + 1);
+    //     std::cin >> order;
+    //     order--;
+    //     this->courses.removeObject(order);
+    // }
+    // else
+    //     std::cout << "Courses are already do not exist\n";
 }
 
 void Mentor::getCourseInfo()
 {
-    const std::string field_names[] = {"name", "price", "rating", "number_of_votes", "id"};
+    const std::string fieldNames[] = {"name", "price", "rating", "number_of_votes", "id"};
 
-    const int nrows = getNrows(std::format("courses WHERE user_id = {}", getId()), field_names, std::size(field_names));
-    const int nfields = getNfields(std::format("courses WHERE user_id = {}", getId()), field_names, std::size(field_names));
+    const int nrows = getNrows(std::format("courses WHERE user_id = {}", getId()), fieldNames, std::size(fieldNames));
+    const int nfields = getNfields(std::format("courses WHERE user_id = {}", getId()), fieldNames, std::size(fieldNames));
 
     std::string* temp = new std::string[nrows * nfields];
 
-    temp = selectFromPostgres(std::format("courses WHERE user_id = {}", getId()), field_names, temp, std::size(field_names));
+    temp = selectFromPostgres(std::format("courses WHERE user_id = {}", getId()), fieldNames, temp, std::size(fieldNames));
 
     if (this->courses.getSize() != 0)
         this->courses.clear();
@@ -120,7 +120,7 @@ void Mentor::getLecturesInfo(Course &course)
 
     std::string* temp = new std::string[nrows * nfields];
 
-    temp = selectFromPostgres(std::format("lectures WHERE course_id = {}", course.getId()), fieldNames, temp, std::size(fieldNames));
+    selectFromPostgres(std::format("lectures WHERE course_id = {}", course.getId()), fieldNames, temp, std::size(fieldNames));
 
     if (course.getLecturesList().getSize() != 0)
         course.getLecturesList().clear();

@@ -1,12 +1,15 @@
 #include "authorizationwindow.h"
 
 #include <QApplication>
+#include "coursesearchcard.h"
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    AuthorizationWindow auth;
+    std::string arr = "asd";
 
+    AuthorizationWindow auth;
     auth.show();
+
     return app.exec();
 }

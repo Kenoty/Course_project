@@ -10,25 +10,30 @@
 #include <QHBoxLayout>
 #include <QGraphicsDropShadowEffect>
 #include <QTabWidget>
-#include <QPainter>
 #include <QScrollArea>
 
-class MentorWindow : public QMainWindow
+#include "mentor.h"
+#include "coursecreationtab.h"
+#include "mentorscoursestab.h"
+#include "userinitialwindow.h"
+
+class MentorWindow : public UserInitialWindow
 {
-    Q_OBJECT
 public:
-    MentorWindow(QWidget *parent = nullptr);
-
-protected:
-
-signals:
+    MentorWindow(Mentor* account, QWidget *parent = nullptr);
+    void openCourseCreationTab(Mentor* account);
+    void createCourse(Mentor* account, CourseCreationTab* tab);
+    void closeCourseCreationTab();
+    void createListOfCoursesTab(Mentor* account);
 
 private:
-    QWidget *centralWidget, *startTab, *listOfCoursesContent;
-    QTabWidget *mainTabWidget;
-    QHBoxLayout *centralLayout;
-    QVBoxLayout *listOfCoursesLayout;
-    QScrollArea *listOfCoursesTab;
+    // QWidget *centralWidget, *startTab;
+    // QTabWidget *mainTabWidget;
+    // QHBoxLayout *centralLayout;
+    // QVBoxLayout *buttonsLayout;
+    QPushButton *downloadReportButton;
+    MentorsCoursesTab *listOfCoursesTab;
+    CourseCreationTab *courseCreationTab;
 };
 
-#endif // MENTORWINDOW_H
+#endif
